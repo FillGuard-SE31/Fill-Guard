@@ -1,16 +1,3 @@
-// import React from "react";
-// import HomePage from "./components/HomePage";
-
-// function App() {
-//   return (
-//     <div>
-//       <HomePage />
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import AOS from "aos";
@@ -19,7 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-
+import Offer from "./components/Offer";
+import FaqSection from "./components/FaqSection";
 import Footer from "./components/Footer";
 
 
@@ -64,6 +52,8 @@ function App() {
                 transition={pageTransition}
               >
                 <Hero />
+                <Offer />
+                <FaqSection />
               </motion.div>
             }
           />

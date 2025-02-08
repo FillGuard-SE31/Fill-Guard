@@ -1,0 +1,167 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
+
+/* Global Container */
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar-left h1 {
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.navbar-right a {
+  margin: 0 1rem;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar-right .btn-primary {
+  background-color: #ffc300;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: #000;
+  text-decoration: none;
+}
+
+.mobile-menu-icon {
+  display: none;
+}
+
+/* Mobile menu container styling */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: absolute;
+  top: 60px;  /* Adjust based on your navbar height */
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  z-index: 1000;
+  border-top: 1px solid #eee;
+}
+
+.mobile-menu a {
+  padding: 0.5rem 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mobile-menu-icon button {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Hide the desktop menu on small screens */
+  .navbar-right.desktop-menu {
+    display: none;
+  }
+  /* Show the hamburger icon on small screens */
+  .mobile-menu-icon {
+    display: block;
+  }
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #fff;
+}
+
+.hero-content {
+  max-width: 1200px;
+  text-align: center;
+}
+
+.hero-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  max-width: 600px;
+  margin: 0 auto 1rem auto;
+  line-height: 1.6;
+}
+
+.hero-content button {
+  background-color: #ffc300;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  color: #000;
+  font-weight: 500;
+}
+
+/* Footer */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer a {
+  color: #ffc300;
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .offer-items,
+  .features-grid,
+  .testimonials,
+  .pricing-plans {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-socials a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+

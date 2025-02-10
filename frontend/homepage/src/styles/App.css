@@ -81,7 +81,7 @@ body {
 
 /* Offer Section */
 .offer {
-  padding: 4rem 1rem;
+  padding: 5.7rem 1rem 4rem 1rem;
   background-color: #f8f9fa;
   text-align: center;
 }
@@ -121,6 +121,7 @@ body {
 /* FAQ Section */
 .faq h2{
   font-size: 2.5rem;
+  font-weight: bold;
 }
 
 .accordion-button {
@@ -159,7 +160,7 @@ body {
   }
 }
 
-/* Hero Section */
+/* Hero Section
 .hero {
   display: flex;
   align-items: center;
@@ -193,7 +194,7 @@ body {
   border-radius: 4px;
   color: #000;
   font-weight: 500;
-}
+} */
 
 /* Footer */
 .footer {
@@ -229,5 +230,82 @@ body {
   .footer-socials a {
     display: block;
     margin: 0.5rem 0;
+  }
+}
+
+/* Hero Section */
+.hero {
+  background-color: #f8f9fa; /* Light background */
+  padding: 5rem 0;
+}
+
+.hero .highlight {
+  color: #ffc300; /* Themed highlight color */
+}
+
+/* Text Styling */
+.hero h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Button Styling */
+.btn-dark {
+  background-color: #000;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: #ffc300; /* Change color on hover */
+}
+
+/* Image Styling */
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 992px) {  /* For tablets and smaller */
+  .hero h2 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) { /* For mobile screens */
+  .hero .row {
+    flex-direction: column-reverse; /* Move text below image */
+    text-align: center;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .btn-dark {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
   }
 }

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { HashLink } from "react-router-hash-link";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,10 @@ function Navbar() {
       <div className="navbar-right desktop-menu">
         <Link to="/">Home</Link>
         <Link to="/product">Product</Link>
-        <Link to="/pricing-plans">FAQ</Link>
+        {/* <Link to="/faq">FAQ</Link> */}
+        <HashLink smooth to="/#faq">
+          FAQ
+        </HashLink>
         <Link to="/team">Team</Link>
         <Link to="/shop">Shop</Link>
         <Link to="/login" className="btn-primary">

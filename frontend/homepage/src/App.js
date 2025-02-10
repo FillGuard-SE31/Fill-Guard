@@ -10,7 +10,7 @@ import Offer from "./components/Offer";
 import FaqSection from "./components/FaqSection";
 import Footer from "./components/Footer";
 
-
+import Team from "./pages/Team";
 
 import "./styles/App.css";
 
@@ -57,6 +57,8 @@ function App() {
               </motion.div>
             }
           />
+          {/* <Route path="/faq" element={<FaqSection />} /> */}
+          <Route path="/team" element={<Team />} />
         </Routes>
       </AnimatePresence>
       <Footer />

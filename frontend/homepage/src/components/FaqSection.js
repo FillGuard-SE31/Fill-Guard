@@ -44,7 +44,7 @@ const FaqSection = () => {
       
       <div className="container">
         <div className="text-center mb-4">
-        <h2>Frequently Asked Questions</h2>
+        <h2 id = "faq">Frequently Asked Questions</h2>
           <motion.img
             src={faqImage}
             alt="FAQ Icon"

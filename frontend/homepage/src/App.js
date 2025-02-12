@@ -11,6 +11,7 @@ import FaqSection from "./components/FaqSection";
 import Footer from "./components/Footer";
 
 import Team from "./pages/Team";
+import Product from "./pages/Product";
 
 import "./styles/App.css";
 
@@ -39,7 +40,7 @@ function App() {
   return (
     <div className={`app ${isLoaded ? "loaded" : "loading"}`}>
       <Navbar />
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
             path="/"
@@ -57,8 +58,8 @@ function App() {
               </motion.div>
             }
           />
-          {/* <Route path="/faq" element={<FaqSection />} /> */}
           <Route path="/team" element={<Team />} />
+          <Route path="/product" element={<Product />} />
         </Routes>
       </AnimatePresence>
       <Footer />

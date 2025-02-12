@@ -70,9 +70,12 @@ function Navbar() {
             <Link onClick={handleLinkClick} to="/product">
               Product
             </Link>
-            <Link onClick={handleLinkClick} to="/pricing-plans">
+            {/* <Link onClick={handleLinkClick} to="/pricing-plans">
               FAQ
-            </Link>
+            </Link> */}
+            <HashLink smooth to="/#faq">
+              FAQ
+            </HashLink>
             <Link onClick={handleLinkClick} to="/team">
               Team
             </Link>

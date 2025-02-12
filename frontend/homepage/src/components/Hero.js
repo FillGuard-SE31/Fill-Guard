@@ -3,11 +3,13 @@ import { motion } from "framer-motion";
 import IoTimg1 from "../assets/img/IoTimg1.png";
 import IoTimg2 from "../assets/img/IoTimg2.png";
 import IoTimg3 from "../assets/img/IoTimg3.png";
+import { useNavigate } from "react-router-dom";
 
 const images = [IoTimg1, IoTimg2, IoTimg3];
 
 function Hero() {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +45,7 @@ function Hero() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
+              onClick={() => navigate("/product")}
             >
               Learn More
             </motion.button>

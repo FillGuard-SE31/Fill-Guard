@@ -33,7 +33,7 @@ function Offer() {
 
   return (
     <section className="offer">
-      <h2 data-aos="fade-down">What We Offer</h2>
+      <h2 data-aos="fade-down">Discover What We Offer</h2>
       <div className="offer-items">
         {offerItems.map((item, index) => (
           <motion.div
@@ -46,7 +46,7 @@ function Offer() {
             data-aos="fade-up"
           >
             <img src={item.img} alt={item.title} />
-            <h3>{item.title}</h3>
+            <h4>{item.title}</h4>
             <p>{item.description}</p>
           </motion.div>
         ))}

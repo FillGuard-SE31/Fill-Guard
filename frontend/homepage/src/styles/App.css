@@ -81,7 +81,7 @@ body {
 
 /* Offer Section */
 .offer {
-  padding: 5.7rem 1rem 4rem 1rem;
+  padding: 0rem 1rem 4rem 1rem;
   background-color: #f8f9fa;
   text-align: center;
 }
@@ -103,13 +103,18 @@ body {
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   transition: transform 0.3s ease;
   max-width: 250px;
 }
 
+.offer-item p {
+  padding-top: 1rem;
+}
+
 .offer-item:hover {
   transform: translateY(-10px);
+  box-shadow: 0 0 12px #8d9aa5;
 }
 
 .offer-item img {
@@ -236,7 +241,6 @@ body {
 /* Hero Section */
 .hero {
   background-color: #f8f9fa; /* Light background */
-  padding: 5rem 0;
 }
 
 .hero .highlight {
@@ -309,3 +313,48 @@ body {
     padding: 0.6rem 1.2rem;
   }
 }
+
+/* Feature Section Styles */
+.feature-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.feature-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 40px;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.feature-img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.feature-description {
+  font-size: 1rem;
+  color: #666; 
+  line-height: 1.6;
+} 

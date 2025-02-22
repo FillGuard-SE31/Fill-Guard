@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"; // Import AnimatePresence
 import IoTimg1 from "../assets/img/IoTimg1.png";
 import IoTimg2 from "../assets/img/IoTimg2.png";
 import IoTimg3 from "../assets/img/IoTimg3.png";
@@ -53,15 +53,18 @@ function Hero() {
 
           {/* Right Side - Image Slideshow */}
           <div className="col-lg-6 col-md-6 col-sm-12 text-center">
-            <motion.img
-              key={index} // Ensures smooth transitions
-              src={images[index]}
-              alt="IoT Illustration"
-              className="img-fluid hero-image"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-            />
+            <AnimatePresence mode="wait"> {/* Wrap with AnimatePresence */}
+              <motion.img
+                key={index} // Ensures smooth transitions
+                src={images[index]}
+                alt="IoT Illustration"
+                className="img-fluid hero-image"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }} // Exit animation
+                transition={{ duration: 1 }}
+              />
+            </AnimatePresence>
           </div>
         </div>
       </div>

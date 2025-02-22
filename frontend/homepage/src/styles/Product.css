@@ -28,12 +28,12 @@
 
 .text h2 {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .text p {
   font-size: 1.2rem;
-  line-height: 1.8;
+  line-height: 1.5;
 }
 
 .text ul {

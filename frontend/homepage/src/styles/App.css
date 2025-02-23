@@ -12,6 +12,7 @@ body {
 
 /* Global Container */
 .app {
+  background-color: #f8fafc;
   display: flex;
   flex-direction: column;
   width: 100%;

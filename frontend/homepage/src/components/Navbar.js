@@ -37,6 +37,7 @@ function Navbar() {
         </HashLink>
         <Link to="/team">Team</Link>
         <Link to="/shop">Shop</Link>
+        <Link to="/contact-us">Contact Us</Link>
         <Link to="/login" className="btn-primary">
           Log in
         </Link>

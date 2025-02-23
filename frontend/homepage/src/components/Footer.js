@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 function Footer() {
   return (
     <motion.footer
-      className="footer"
+      className="footer mt-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

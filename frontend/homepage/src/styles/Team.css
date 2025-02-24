@@ -61,4 +61,14 @@
     font-weight: 500;
   }
   
+  .role-link {
+    color: black; /* Black text color */
+    text-decoration: underline; /* Underline the text */
+    font-weight: 500; /* Match the existing font weight */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+  }
   
+  .role-link:hover {
+    color: #fff; /* LinkedIn brand white color on hover */
+    text-decoration: none; /* Remove underline on hover */
+  }

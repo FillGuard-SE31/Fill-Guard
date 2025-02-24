@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import ChallengeSection from "./components/ChallengeSection";
 import Feature from "./components/Feature";
 import Offer from "./components/Offer";
 import FaqSection from "./components/FaqSection";
@@ -13,6 +14,7 @@ import Footer from "./components/Footer";
 
 import Team from "./pages/Team";
 import Product from "./pages/Product";
+import Shop from "./pages/Shop";
 import ContactPage from "./pages/ContactUs";
 
 import "./styles/App.css";
@@ -55,6 +57,7 @@ function App() {
                 transition={pageTransition}
               >
                 <Hero />
+                <ChallengeSection />
                 <Feature />
                 <Offer />
                 <FaqSection />
@@ -63,6 +66,7 @@ function App() {
           />
           <Route path="/team" element={<Team />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/shop" element={<Shop />}/>
           <Route path="/contact-us" element={<ContactPage />} />
         </Routes>
       </AnimatePresence>

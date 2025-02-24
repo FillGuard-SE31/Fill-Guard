@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import ChallengeSection from "./components/ChallengeSection";
 import Feature from "./components/Feature";
 import Offer from "./components/Offer";
 import FaqSection from "./components/FaqSection";
@@ -54,6 +55,7 @@ function App() {
                 transition={pageTransition}
               >
                 <Hero />
+                <ChallengeSection />
                 <Feature />
                 <Offer />
                 <FaqSection />

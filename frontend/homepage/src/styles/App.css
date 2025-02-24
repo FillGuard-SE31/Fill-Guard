@@ -358,3 +358,39 @@ body {
   color: #666; 
   line-height: 1.6;
 } 
+
+/* Challenge Section Styles */
+.challenge-section {
+  padding: 80px 0;
+  background-color: #ffffff; /* White background */
+}
+
+.challenge-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.challenge-section .row {
+  margin-bottom: 60px; /* Space between topics */
+}
+
+.challenge-section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Optional: Add rounded corners to images */
+}
+
+.challenge-topic {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333; /* Black color for the topic */
+  margin-bottom: 20px;
+}
+
+.challenge-description {
+  font-size: 1rem;
+  color: #666; /* Ash color for the description */
+  line-height: 1.8;
+  text-align: justify; /* Justify the text */
+}

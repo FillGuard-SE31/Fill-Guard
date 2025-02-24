@@ -14,6 +14,8 @@ import Footer from "./components/Footer";
 
 import Team from "./pages/Team";
 import Product from "./pages/Product";
+import Shop from "./pages/Shop";
+import ContactPage from "./pages/ContactUs";
 
 import "./styles/App.css";
 
@@ -40,7 +42,7 @@ function App() {
   };
 
   return (
-    <div className={`app ${isLoaded ? "loaded" : "loading"}`}>
+    <div className={`min-vh-100 app ${isLoaded ? "loaded" : "loading"}`}>
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
@@ -64,6 +66,8 @@ function App() {
           />
           <Route path="/team" element={<Team />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/shop" element={<Shop />}/>
+          <Route path="/contact-us" element={<ContactPage />} />
         </Routes>
       </AnimatePresence>
       <Footer />

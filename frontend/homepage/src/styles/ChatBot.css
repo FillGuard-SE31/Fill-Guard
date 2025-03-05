@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #4CAF50;
+    background-color: #ffa500;
     color: white;
     border: none;
     border-radius: 50%;
@@ -39,7 +39,7 @@
   }
   
   .chat-header {
-    background-color: #4CAF50;
+    background-color: #ffa500;
     color: white;
     padding: 15px;
     font-weight: bold;
@@ -120,7 +120,7 @@
   }
   
   .chat-input-container button {
-    background-color: #4CAF50;
+    background-color: #ffa500;
     color: white;
     border: none;
     border-radius: 20px;

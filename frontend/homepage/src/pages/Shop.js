@@ -1,9 +1,13 @@
 // src/pages/Shop.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { FaStar } from "react-icons/fa";
 import IoTImageSlider from "../components/IoTImageSlider";
+import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../slices/cartSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 // Framer Motion variants for simple fade-in
 const fadeIn = {
@@ -11,30 +15,45 @@ const fadeIn = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-    },
+    transition: { duration: 0.8 },
   },
 };
 
 function Shop() {
+  // Track local "added to cart" message
   const [addedToCart, setAddedToCart] = useState(false);
 
-  // State to manage reviews
+  // For the product rating / reviews
   const [reviews, setReviews] = useState([]);
   const [name, setName] = useState("");
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
+  // Replace this with your actual product's ID from the DB
+  const PRODUCT_ID = "67c93434c7268ca798700706";
+
+  // Fetch product details from the DB
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useGetProductDetailsQuery(PRODUCT_ID);
+
+  const dispatch = useDispatch();
+
   // Handle Add to Cart
   const handleAddToCart = () => {
-    setAddedToCart(true);
-    setTimeout(() => {
-      setAddedToCart(false);
-    }, 2000);
+    // If product is available, add with qty=1 (or let user choose)
+    if (product) {
+      dispatch(addToCart({ ...product, qty: 1 }));
+      setAddedToCart(true);
+      setTimeout(() => {
+        setAddedToCart(false);
+      }, 2000);
+    }
   };
 
-  // Handle Review Submit
+  // Handle local review submit
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     const newReview = {
@@ -51,6 +70,27 @@ function Shop() {
     setComment("");
   };
 
+  // If product is loading or error
+  if (isLoading) return <Loader />;
+  if (error) {
+    return (
+      <div className="container py-5">
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
+      </div>
+    );
+  }
+
+  // If no product found, you can handle that too
+  if (!product) {
+    return (
+      <div className="container py-5">
+        <Message variant="info">Product not found!</Message>
+      </div>
+    );
+  }
+
   return (
     <div className="container py-5">
       <motion.div
@@ -64,36 +104,33 @@ function Shop() {
           <IoTImageSlider />
         </div>
 
-        {/* Right Column: Product Details */}
+        {/* Right Column: Product Details from DB */}
         <div className="col-md-6">
           <h1 className="mb-3" style={{ color: "#000" }}>
-            Smart IoT Device
+            {product.name}
           </h1>
-          <h3 className="text-muted mb-4">$24.99</h3>
+          <h3 className="text-muted mb-4">${product.price}</h3>
 
           <p className="mb-4" style={{ lineHeight: 1.6, color: "#000" }}>
-            Experience cutting-edge waste bin monitoring with our advanced
-            IoT device. Featuring an ESP32 microcontroller, ultrasonic
-            distance sensor, and temperature/humidity monitoring—all packed
-            into one sleek unit. Receive real-time data on bin fill levels
-            and environmental conditions to optimize operations.
+            {product.description}
           </p>
 
-          <ul className="list-unstyled mb-4" style={{ color: "#000" }}>
-            <li>• ESP32 Microcontroller with Wi-Fi connectivity</li>
-            <li>• Ultrasonic sensor for precise fill-level detection</li>
-            <li>• DHT-11 for temperature & humidity monitoring</li>
-            <li>• Weatherproof enclosure for outdoor use</li>
-            <li>• Easy setup and real-time data tracking</li>
-          </ul>
+          {/* Additional features if you want to display them */}
+          {product.features && (
+            <ul className="list-unstyled mb-4" style={{ color: "#000" }}>
+              {product.features.map((feat, idx) => (
+                <li key={idx}>• {feat}</li>
+              ))}
+            </ul>
+          )}
 
-          {/* Updated Add to Cart Button */}
           <button
             className="btn btn-lg"
             style={{ backgroundColor: "#ffc300", color: "#000", border: "none" }}
             onClick={handleAddToCart}
+            disabled={product.countInStock === 0}
           >
-            Add to Cart
+            {product.countInStock > 0 ? "Add to Cart" : "Out of Stock"}
           </button>
 
           {addedToCart && (
@@ -241,4 +278,3 @@ function Shop() {
 }
 
 export default Shop;
-

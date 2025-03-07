@@ -1,5 +1,3 @@
-// backend/controllers/orderController.js
-
 import asyncHandler from '../middleware/asyncHandler.js';
 import Order from '../models/orderModel.js';
 
@@ -21,27 +19,29 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   if (!orderItems || orderItems.length === 0) {
     res.status(400);
-    throw new Error('No order items');
-  } else {
-    // Create a new order document
-    const order = new Order({
-      user: req.user._id,
-      orderItems: orderItems.map((item) => ({
-        ...item,
-        product: item._id, // Link to product
-        _id: undefined,    // Remove the _id field from the item
-      })),
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-    });
-
-    const createdOrder = await order.save();
-    res.status(201).json(createdOrder);
+    throw new Error("No order items");
   }
+
+  // Ensure totalPrice is always valid
+  const fixedTotalPrice =
+    totalPrice && totalPrice > 0 ? totalPrice.toFixed(2) : "1.00";
+
+  const order = new Order({
+    user: req.user._id,
+    orderItems: orderItems.map((item) => ({
+      ...item,
+      _id: undefined,
+    })),
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice: fixedTotalPrice,
+  });
+
+  const createdOrder = await order.save();
+  res.status(201).json(createdOrder);
 });
 
 /**
@@ -50,7 +50,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getMyOrders = asyncHandler(async (req, res) => {
-  // Find all orders belonging to logged-in user
   const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 });
@@ -61,14 +60,12 @@ const getMyOrders = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getOrderById = asyncHandler(async (req, res) => {
-  // Populate the 'user' field to access name and email
-  const order = await Order.findById(req.params.id).populate('user', 'name email');
-
+  const order = await Order.findById(req.params.id).populate("user", "name email");
   if (order) {
     res.json(order);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error("Order not found");
   }
 });
 
@@ -79,7 +76,6 @@ const getOrderById = asyncHandler(async (req, res) => {
  */
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
-
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
@@ -90,11 +86,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       email_address: req.body.payer.email_address,
     };
 
+    // Ensure totalPrice is valid
+    order.totalPrice = order.totalPrice > 0 ? order.totalPrice.toFixed(2) : "1.00";
+
     const updatedOrder = await order.save();
     res.json(updatedOrder);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error("Order not found");
   }
 });
 
@@ -105,7 +104,6 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
  */
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
-
   if (order) {
     order.isDelivered = true;
     order.deliveredAt = Date.now();
@@ -114,7 +112,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
     res.json(updatedOrder);
   } else {
     res.status(404);
-    throw new Error('Order not found');
+    throw new Error("Order not found");
   }
 });
 
@@ -124,8 +122,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
  * @access Private/Admin
  */
 const getOrders = asyncHandler(async (req, res) => {
-  // Also populate user ID and name to show which user placed order
-  const orders = await Order.find({}).populate('user', 'id name');
+  const orders = await Order.find({}).populate("user", "id name");
   res.json(orders);
 });
 

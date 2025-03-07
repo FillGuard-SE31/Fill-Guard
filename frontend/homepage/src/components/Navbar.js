@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HashLink } from "react-router-hash-link";
+import Login from "../pages/login"; // Import the Login component
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false); // State to control Login visibility
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -38,9 +40,10 @@ function Navbar() {
         <Link to="/team">Team</Link>
         <Link to="/shop">Shop</Link>
         <Link to="/contact-us">Contact Us</Link>
-        <Link to="/login" className="btn-primary">
+        {/* Login Button */}
+        <button onClick={() => setShowLogin(true)} className="btn-primary">
           Log in
-        </Link>
+        </button>
       </div>
 
       {/* Hamburger Icon for Mobile */}
@@ -85,12 +88,16 @@ function Navbar() {
             <Link onClick={handleLinkClick} to="/shop">
               Shop
             </Link>
-            <Link onClick={handleLinkClick} to="/login" className="btn-primary">
+            {/* Login Button in Mobile Menu */}
+            <button onClick={() => setShowLogin(true)} className="btn-primary">
               Log in
-            </Link>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Render the Login component if showLogin is true */}
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
     </motion.nav>
   );
 }

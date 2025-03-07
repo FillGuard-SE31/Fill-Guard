@@ -182,6 +182,9 @@ function AppNavbar() {
                 <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/mydevices">
+                  <NavDropdown.Item>My Devices</NavDropdown.Item>
+                </LinkContainer>
                 <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
               </NavDropdown>
             ) : (
@@ -213,5 +216,4 @@ function AppNavbar() {
     </Navbar>
   );
 }
-
 export default AppNavbar;

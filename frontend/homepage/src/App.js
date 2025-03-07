@@ -117,6 +117,7 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ProductScreen from './screens/ProductScreen'; // Route for individual product details
+import MyDevices from './screens/MyDevices'; // Route for My Devices page
 
 // Admin Screens
 import OrderListScreen from './screens/admin/OrderListScreen';
@@ -244,6 +245,7 @@ function App() {
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/order/:id" element={<OrderScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/mydevices" element={<MyDevices />} /> {/* My Devices Page */}
             </Route>
 
             {/* Admin Routes */}

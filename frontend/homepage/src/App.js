@@ -4,6 +4,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { AnimatePresence, motion } from "framer-motion";
 
+import ChatBot from './components/ChatBot';
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ChallengeSection from "./components/ChallengeSection";
@@ -72,6 +74,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </AnimatePresence>
+      <ChatBot />
       <Footer />
     </div>
   );

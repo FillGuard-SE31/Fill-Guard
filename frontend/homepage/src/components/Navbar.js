@@ -185,6 +185,24 @@ function AppNavbar() {
                 <LinkContainer to="/mydevices">
                   <NavDropdown.Item>My Devices</NavDropdown.Item>
                 </LinkContainer>
+
+                {/* Admin-only options inside user dropdown */}
+                {userInfo.isAdmin && (
+                  <>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/admin/userlist">
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/orderlist">
+                      <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/productlist">
+                      <NavDropdown.Item>Products</NavDropdown.Item>
+                    </LinkContainer>
+                  </>
+                )}
+
+                <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
               </NavDropdown>
             ) : (
@@ -194,22 +212,6 @@ function AppNavbar() {
                 </Nav.Link>
               </LinkContainer>
             )}
-
-            {/* Admin Links */}
-            {userInfo && userInfo.isAdmin && (
-              <NavDropdown title="Admin" id="adminmenu" className="ms-2">
-                <LinkContainer to="/admin/productlist">
-                  <NavDropdown.Item>Products</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/orderlist">
-                  <NavDropdown.Item>Orders</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/admin/userlist">
-                  <NavDropdown.Item>Users</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
-            )}
-
           </Nav>
         </Navbar.Collapse>
       </Container>

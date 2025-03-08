@@ -24,34 +24,34 @@ const io = new Server(server, {
   },
 });
 
-// Connect to MongoDB Atlas
-const MONGO_URI = process.env.MONGO_URI;
-if (!MONGO_URI) {
-  console.error("❌ MongoDB URI is missing in .env file");
-  process.exit(1);
-}
+// // Connect to MongoDB Atlas
+// const MONGO_URI = process.env.MONGO_URI;
+// if (!MONGO_URI) {
+//   console.error("❌ MongoDB URI is missing in .env file");
+//   process.exit(1);
+// }
 
-mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => {
-    console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1);
-  });
+// mongoose
+//   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log("✅ Connected to MongoDB Atlas"))
+//   .catch((err) => {
+//     console.error("❌ MongoDB Connection Error:", err);
+//     process.exit(1);
+//   });
 
-// Define Sensor Data Schema
-const SensorDataSchema = new mongoose.Schema({
-  fillLevel: Number,
-  temperature: Number,
-  humidity: Number,
-  timestamp: { type: Date, default: Date.now },
-});
+// // Define Sensor Data Schema
+// const SensorDataSchema = new mongoose.Schema({
+//   fillLevel: Number,
+//   temperature: Number,
+//   humidity: Number,
+//   timestamp: { type: Date, default: Date.now },
+// });
 
-const SensorData = mongoose.model("SensorData", SensorDataSchema);
+// const SensorData = mongoose.model("SensorData", SensorDataSchema);
 
 // MQTT Configuration
 const MQTT_BROKER = process.env.MQTT_BROKER || "mqtt://broker.hivemq.com";
-const MQTT_TOPIC = "fillguard/sensorData";
+const MQTT_TOPIC = process.env.MQTT_TOPIC || "fillguard/sensorData";
 
 const client = mqtt.connect(MQTT_BROKER);
 

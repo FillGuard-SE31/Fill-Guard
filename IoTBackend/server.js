@@ -7,7 +7,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const SensorData = require("./models/sensorData");
-require("./models/Database"); // Connects to MongoDB
+require("./models/database"); // Connects to MongoDB
 
 
 // Initialize Express app

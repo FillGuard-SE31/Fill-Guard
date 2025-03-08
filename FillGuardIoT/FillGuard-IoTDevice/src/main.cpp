@@ -151,8 +151,11 @@ const char* topic = "fillguard/sensorData";
 const int trigPin = 5;
 const int echoPin = 18;
 
+// Bin Configuration
 // Define Bin Height (in cm) - Measure and update this
-const float binHeight = 50.0;  // Example: Empty bin measures 50cm
+const float binHeight = 50.0;
+// Minimum detectable height (To avoid zero-distance errors)
+const float binMinHeight = 5.0;
 
 // DHT-11 Sensor
 #define DHTPIN 4
@@ -162,6 +165,8 @@ DHT dht(DHTPIN, DHTTYPE);
 // MQTT Client Setup
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+#define SOUND_SPEED 0.034  // Speed of sound in cm/μs
 
 // Function to connect to WiFi
 void connectWiFi() {
@@ -193,11 +198,12 @@ void connectMQTT() {
 // Function to calculate bin fill percentage
 float calculateFillPercentage(float distanceCm) {
     // Ensure distance is within expected range
-    if (distanceCm > binHeight) return 0.0;  // Bin is empty
-    if (distanceCm < 5.0) return 100.0;  // Bin is full (adjust threshold as needed)
+    if (distanceCm > binHeight) distanceCm = binHeight; // Prevent values above max bin height
+    if (distanceCm < binMinHeight) distanceCm = binMinHeight; // Prevent unrealistic close distances
 
-    float fillLevel = ((binHeight - distanceCm) / binHeight) * 100.0;
-    return constrain(fillLevel, 0.0, 100.0);  // Keep between 0-100%
+
+    float fillLevel = (1 - ((distanceCm - binMinHeight) / (binHeight - binMinHeight))) * 100;
+    return constrain(fillLevel, 0, 100);  // Ensure it's between 0% and 100%
 }
 
 void setup() {
@@ -224,7 +230,7 @@ void loop() {
     digitalWrite(trigPin, LOW);
     
     long duration = pulseIn(echoPin, HIGH);
-    float distanceCm = duration * 0.034 / 2;  // Convert to cm
+    float distanceCm = duration * SOUND_SPEED / 2;  // Convert to cm
 
     // --- Calculate Bin Fill Level ---
     float binFillLevel = calculateFillPercentage(distanceCm);
@@ -237,7 +243,7 @@ void loop() {
         Serial.println("❌ Failed to read from DHT sensor!");
     } else {
         // --- Send Data to MQTT Broker ---
-        String payload = "{\"binFillLevel\": " + String(binFillLevel) +
+        String payload = "{\"fillLevel\": " + String(binFillLevel) +
                          ", \"temperature\": " + String(temperatureC) +
                          ", \"humidity\": " + String(humidity) + "}";
 
@@ -247,5 +253,6 @@ void loop() {
         client.publish(topic, payload.c_str());
     }
 
-    delay(5000);  // Send data every 5 seconds
+    delay(2000);  // Send data every 2 seconds
 }
+

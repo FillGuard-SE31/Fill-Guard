@@ -1,3 +1,27 @@
+.form-box {
+    border: 2px solid #e6e4de; /* Yellow border */
+    border-radius: 8px;
+    padding: 10px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto; /* Center the box horizontally */
+    background-color: #f5f1f1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for the box */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+  }
+  
+  .form-box:hover {
+    background-color: #f9f9f9; /* Change background color on hover */
+    transform: translateY(-5px); /* Slight lift effect */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  }
+  
+  .form-box .button {
+    margin-top: 20px; /* Space out the button */
+    width: 50%; /* Make button take up full width inside the box */
+  }
+  
+
 .button {
     background-color:  #ffc107;; 
     color: rgb(10, 9, 9); /* Black text */
@@ -6,7 +30,7 @@
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    width: 50%; /* Make the button stretch across the full width of its container */
+    width: 200%; /* Make the button stretch across the full width of its container */
     margin: 0 auto; /* Center the button horizontally */
   }
   

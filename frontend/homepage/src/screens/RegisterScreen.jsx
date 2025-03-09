@@ -8,6 +8,8 @@ import FormContainer from "../components/FormContainer";
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import "../styles/RegisterScreen.css";
+
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -49,8 +51,10 @@ const RegisterScreen = () => {
   };
 
   return (
-    <FormContainer>
+    <div className="form-box">
+   
       <h1>Register</h1>
+    
       <Form onSubmit={submitHandler}>
         <Form.Group className="my-2" controlId="name">
           <Form.Label>Name</Form.Label>
@@ -91,12 +95,13 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type="submit" variant="primary">
+        <Button className="button" disabled={isLoading} type="submit" variant="primary">
           Register
         </Button>
 
         {isLoading && <Loader />}
       </Form>
+   
 
       <Row className="py-3">
         <Col>
@@ -106,7 +111,8 @@ const RegisterScreen = () => {
           </Link>
         </Col>
       </Row>
-    </FormContainer>
+      </div>
+  
   );
 };
 

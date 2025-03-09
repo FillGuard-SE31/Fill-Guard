@@ -107,14 +107,19 @@ function Offer() {
           {offerItems.map((item, index) => (
             <Col md={3} key={index} className="mb-4">
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  boxShadow: '0px 10px 20px rgba(255, 195, 0, 0.5)', // Increase spread and opacity
+                }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 data-aos="fade-up"
-                className="p-3 text-center shadow-sm h-100"
-                style={{ borderRadius: '8px', backgroundColor: '#fff' }}
+                className="p-3 text-center h-100"
+                style={{  borderRadius: '8px', 
+                          backgroundColor: '#fff',
+                          transition: 'all 0.3s ease'}}  //smooth transition for box shadow
               >
                 <Image
                   src={item.img}

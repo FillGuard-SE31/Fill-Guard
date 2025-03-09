@@ -176,6 +176,15 @@ client.on("message", async (topic, message) => {
   try {
     const data = JSON.parse(message.toString());
 
+    // Validate data
+    if (
+      typeof data.fillLevel !== "number" ||
+      typeof data.temperature !== "number" ||
+      typeof data.humidity !== "number"
+    ) {
+      throw new Error("Invalid sensor data: fillLevel, temperature, or humidity is not a number");
+    }
+
     // Save data to MongoDB
     const newSensorData = new SensorData(data);
     await newSensorData.save();
@@ -184,9 +193,9 @@ client.on("message", async (topic, message) => {
 
     // Emit data to all connected WebSocket clients
     io.emit("sensorData", {
-      binFillLevel: data.fillLevel.toFixed(1),
-      temperature: data.temperature.toFixed(1),
-      humidity: data.humidity.toFixed(1),
+      binFillLevel: data.fillLevel,
+      temperature: data.temperature,
+      humidity: data.humidity,
       timestamp: new Date().toLocaleTimeString(),
     });
   } catch (err) {

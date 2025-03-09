@@ -38,11 +38,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import { FaInstagram, FaXTwitter, FaFacebook, FaYoutube } from 'react-icons/fa6';
+import '../styles/App.css';
 
 function Footer() {
   return (
     <motion.footer
-      className="footer mt-auto py-4 bg-light"
+      className="footer mt-auto py-4 bg-dark text-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
@@ -57,29 +59,33 @@ function Footer() {
                 href="https://www.instagram.com/fillguard/"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "#ffc300" }}
               >
-                Instagram
+                <FaInstagram size={24} /> {/* Instagram icon */}
               </a>
               <a
                 href="https://x.com/FillGuard"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "#ffc300" }}
               >
-                X
+                <FaXTwitter size={24} /> {/* X (Twitter) icon */}
               </a>
               <a
                 href="https://facebook.com/FillGuard"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "#ffc300" }}
               >
-                Facebook
+                <FaFacebook size={24} /> {/* Facebook icon */}
               </a>
               <a
                 href="https://youtube.com/@fillguard?si=QsRuzRDTWHMiBieR"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "#ffc300" }}
               >
-                YouTube
+                <FaYoutube size={24} /> {/* YouTube icon */}
               </a>
             </div>
           </Col>

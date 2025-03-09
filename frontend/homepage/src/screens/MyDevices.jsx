@@ -28,7 +28,7 @@ const Dashboard = () => {
   const [report, setReport] = useState({ avgTemp: 0, avgHumidity: 0, fillFrequency: 0 });
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io("http://localhost:5002");
 
     socket.on("sensorData", (data) => {
       try {

@@ -1,25 +1,44 @@
+/*
+.button {
+  background-color: #ffc107;
+  color: rgb(10, 9, 9);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50%;
+  margin: 0 auto;
+}
 
-  
-  .button {
-    background-color:  #ffc107;; 
-    color: rgb(10, 9, 9); /* Black text */
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 50%; /* Make the button stretch across the full width of its container */
-    margin: 0 auto; /* Center the button horizontally */
-  }
-  
-  .button:hover {
-    background-color:  #d3a007;; 
-  }
-  
-  .button:disabled {
-    background-color: #b0c4de; /* Light gray when disabled */
-    cursor: not-allowed; /* Change cursor when disabled */
-  }
-  
+.button:hover {
+  background-color: #d3a007;
+}
 
-  
+.button:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+}
+*/
+.modern-login-card {
+  border: none;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(228, 160, 160, 0.1);
+}
+
+.modern-login-btn {
+  background: #000000cd;
+  border: none;
+  color: #fff;
+}
+
+.modern-login-btn:hover {
+  background: #000;
+  color: #ffc300;
+}
+
+.small {
+  color: #ffc300; /* Set the link color to #ffc300 */
+}

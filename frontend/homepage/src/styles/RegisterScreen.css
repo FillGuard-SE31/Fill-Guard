@@ -1,45 +1,97 @@
+/*
 .form-box {
-    border: 2px solid #e6e4de; /* Yellow border */
+    border: 2px solid #e6e4de;
     border-radius: 8px;
     padding: 10px;
     width: 90%;
     max-width: 500px;
-    margin: 0 auto; /* Center the box horizontally */
+    margin: 0 auto;
     background-color: #f5f1f1;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for the box */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-  }
-  
-  .form-box:hover {
-    background-color: #f9f9f9; /* Change background color on hover */
-    transform: translateY(-5px); /* Slight lift effect */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-  }
-  
-  .form-box .button {
-    margin-top: 20px; /* Space out the button */
-    width: 50%; /* Make button take up full width inside the box */
-  }
-  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-box:hover {
+    background-color: #f9f9f9;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-box .button {
+    margin-top: 20px;
+    width: 50%;
+}
 
 .button {
-    background-color:  #ffc107;; 
-    color: rgb(10, 9, 9); /* Black text */
+    background-color: #ffc107;
+    color: rgb(10, 9, 9);
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    width: 200%; /* Make the button stretch across the full width of its container */
-    margin: 0 auto; /* Center the button horizontally */
-  }
-  
-  .button:hover {
-    background-color:  #d3a007;; 
-  }
-  
-  .button:disabled {
-    background-color: #b0c4de; /* Light gray when disabled */
-    cursor: not-allowed; /* Change cursor when disabled */
-  }
-  
+    width: 200%;
+    margin: 0 auto;
+}
+
+.button:hover {
+    background-color: #d3a007;
+}
+
+.button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+}
+*/
+
+.form-container {
+  min-height: 100vh; /* Full height for better vertical alignment */
+  padding: 0 0 6rem 0;
+}
+
+.modern-register-card {
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-register-btn {
+  background: #000000cd; /* Orange like the login button */
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.modern-register-btn:hover {
+  background: #000; /* Turns black on hover like the login button */
+  color: #ffc300;
+}
+
+.text-center a {
+  color: #ffc400;
+  text-decoration: none;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+.form-floating .form-control {
+  border-radius: 8px;
+  /* border: 1px solid #ccc; */
+}
+
+.form-floating label {
+  color: #6d664d;
+}
+
+.form-floating .form-control:focus {
+  border-color: #dddddd;
+  box-shadow: 0 0 5px #ffc300;
+}

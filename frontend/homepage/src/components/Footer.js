@@ -38,6 +38,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import { FaInstagram, FaXTwitter, FaFacebook, FaYoutube } from 'react-icons/fa6';
 import '../styles/App.css';
 
 function Footer() {
@@ -60,7 +61,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 style={{ color: "#ffc300" }}
               >
-                Instagram
+                <FaInstagram size={24} /> {/* Instagram icon */}
               </a>
               <a
                 href="https://x.com/FillGuard"
@@ -68,7 +69,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 style={{ color: "#ffc300" }}
               >
-                X
+                <FaXTwitter size={24} /> {/* X (Twitter) icon */}
               </a>
               <a
                 href="https://facebook.com/FillGuard"
@@ -76,7 +77,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 style={{ color: "#ffc300" }}
               >
-                Facebook
+                <FaFacebook size={24} /> {/* Facebook icon */}
               </a>
               <a
                 href="https://youtube.com/@fillguard?si=QsRuzRDTWHMiBieR"
@@ -84,7 +85,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 style={{ color: "#ffc300" }}
               >
-                YouTube
+                <FaYoutube size={24} /> {/* YouTube icon */}
               </a>
             </div>
           </Col>

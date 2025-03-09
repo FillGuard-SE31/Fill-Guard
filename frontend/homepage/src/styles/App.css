@@ -271,13 +271,15 @@ body {
 
 /* Custom CSS for hover effects */
 .footer-socials a {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 8px;
+  border-radius: 50%; /* Circular background */
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .footer-socials a:hover {
-  transform: scale(1.1); /* Zoom effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-  opacity: 0.8; /* Overlay effect */
+  transform: scale(1.2); /* Enlarge on hover */
+  background: linear-gradient(45deg, #ffc300, #ffffff); /* Gradient background */
+  box-shadow: 0 0 15px #ffc300; /* Glow effect */
 }
 
 /* Hero Section */

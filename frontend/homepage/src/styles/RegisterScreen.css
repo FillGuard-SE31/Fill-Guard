@@ -1,6 +1,4 @@
-
-  
-  .button {
+.button {
     background-color:  #ffc107;; 
     color: rgb(10, 9, 9); /* Black text */
     border: none;
@@ -20,6 +18,4 @@
     background-color: #b0c4de; /* Light gray when disabled */
     cursor: not-allowed; /* Change cursor when disabled */
   }
-  
-
   

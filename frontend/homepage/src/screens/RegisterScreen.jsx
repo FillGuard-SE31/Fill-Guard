@@ -91,7 +91,7 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type="submit" variant="primary">
+        <Button className="button" disabled={isLoading} type="submit" variant="primary">
           Register
         </Button>
 

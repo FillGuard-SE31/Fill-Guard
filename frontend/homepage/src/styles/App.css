@@ -219,7 +219,7 @@ body {
 } */
 
 /* Footer */
-.footer {
+/*.footer {
   background-color: #343a40;
   color: #fff;
   padding: 2rem;
@@ -235,9 +235,22 @@ body {
 
 .footer a:hover {
   color: #fff;
+}*/
+
+/*
+.footer-socials a {
+  color: #ffc300; 
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-socials a:hover {
+  color: #fff !important; 
+  transform: scale(1.1);
 }
 
 /* Responsive Design */
+/*
 @media (max-width: 768px) {
   .offer-items,
   .features-grid,
@@ -253,6 +266,18 @@ body {
     display: block;
     margin: 0.5rem 0;
   }
+}
+*/
+
+/* Custom CSS for hover effects */
+.footer-socials a {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-socials a:hover {
+  transform: scale(1.1); /* Zoom effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  opacity: 0.8; /* Overlay effect */
 }
 
 /* Hero Section */

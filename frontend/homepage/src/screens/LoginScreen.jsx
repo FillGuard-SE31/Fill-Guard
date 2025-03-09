@@ -8,6 +8,8 @@ import FormContainer from "../components/FormContainer";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import "../styles/LoginScreen.css"; // Adjust the path based on where your CSS is located
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -66,7 +68,7 @@ const LoginScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type="submit" variant="primary">
+        <Button className="button" disabled={isLoading} type="submit" variant="primary">
           Sign In
         </Button>
 

@@ -110,6 +110,7 @@ function Offer() {
                 whileHover={{ 
                   scale: 1.05, 
                   boxShadow: '0px 10px 20px rgba(255, 195, 0, 0.5)', // Increase spread and opacity
+                  transition: { duration: 0.15, ease: "easeOut" } // faster response
                 }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +120,7 @@ function Offer() {
                 className="p-3 text-center h-100"
                 style={{  borderRadius: '8px', 
                           backgroundColor: '#fff',
-                          transition: 'all 0.3s ease'}}  //smooth transition for box shadow
+                          transition: 'all 0.15s ease-out'}}  //smooth transition for box shadow
               >
                 <Image
                   src={item.img}

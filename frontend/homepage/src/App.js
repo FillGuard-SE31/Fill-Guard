@@ -192,6 +192,7 @@ import "aos/dist/aos.css";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/App.css";  
 
 // Components
 import Navbar from "./components/Navbar";

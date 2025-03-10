@@ -136,7 +136,7 @@ function AppNavbar() {
   };
 
   return (
-    <Navbar bg="light" variant="light" expand="lg" collapseOnSelect>
+    <Navbar style={{ backgroundColor: '#111', color: 'white' }} variant="dark" expand="lg" collapseOnSelect>
       <Container>
         {/* Brand */}
         <LinkContainer to="/">

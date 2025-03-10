@@ -1,25 +1,3 @@
-/*
-.button {
-  background-color: #ffc107;
-  color: rgb(10, 9, 9);
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 50%;
-  margin: 0 auto;
-}
-
-.button:hover {
-  background-color: #d3a007;
-}
-
-.button:disabled {
-  background-color: #b0c4de;
-  cursor: not-allowed;
-}
-*/
 .modern-login-card {
   border: none;
   border-radius: 1rem;
@@ -37,6 +15,13 @@
 .modern-login-btn:hover {
   background: #000;
   color: #ffc300;
+}
+
+.modern-login-btn:focus,
+.modern-login-btn:active {
+  background-color: #000 !important;
+  color: #ffc300 !important;
+  box-shadow: none !important; 
 }
 
 .small {

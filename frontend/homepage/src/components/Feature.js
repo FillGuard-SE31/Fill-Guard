@@ -112,7 +112,7 @@
 
 // src/components/Feature.jsx
 import React from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import feature1 from '../assets/img/feature1.png';
 import feature2 from '../assets/img/feature2.png';
@@ -130,25 +130,25 @@ const Feature = () => {
       img: feature1,
       title: 'Real-Time Bin Monitoring',
       description:
-        'The web application provides real-time updates on bin fill levels and environmental conditions. Helps with timely waste collection or material replenishment.',
+        'The web application will provide real-time updates on bin fill levels and, where applicable, environmental conditions such as temperature and humidity. For each bin, users can view current levels, helping them make timely decisions on waste collection, material replenishment, or environmental adjustments.',
     },
     {
       img: feature2,
       title: 'Automated Notifications & Alerts',
       description:
-        'Set customizable thresholds to automatically send alerts via email, SMS, or in-app notifications whenever bins reach certain levels or conditions fluctuate.',
+        'To prevent issues like overflow or material depletion, users can set customizable notification thresholds within the application. When a bin reaches a specified level or environmental conditions fluctuate beyond safe ranges, the system automatically sends alerts via email, SMS, or in-app notifications.',
     },
     {
       img: feature3,
       title: 'Data Analytics & Reporting Dashboard',
       description:
-        'Access historical data and usage trends. Examine usage patterns over time to refine operations and identify peak times for waste generation or usage.',
+        'The application will feature an analytics dashboard, where users can access historical data and trends for each monitored bin. By examining usage patterns over time, companies can identify peak times for waste generation or material usage, allowing them to refine their operations.',
     },
     {
       img: feature4,
       title: 'Multi-Bin & Multi-Site Management',
       description:
-        'Easily manage and monitor bins across multiple locations from one centralized platform.',
+        'Organizations often operate across various locations, so the web application will support multi-site and multi-bin management. Users can register and monitor numerous bins across different facilities within a single platform. You can Easily manage and monitor bins across multiple locations from one centralized platform.',
     },
   ];
 
@@ -157,39 +157,68 @@ const Feature = () => {
       <Container>
         <Row>
           <Col>
-            <h2
-              data-aos="fade-down"
-              className="feature-heading text-center mb-5"
-            >
-              Explore Our Features
-            </h2>
+            <h2 className="text-center mb-5">Explore Our Features</h2>
           </Col>
         </Row>
 
         <Row>
           {features.map((feat, index) => (
-            <Col md={6} className="mb-4" key={index}>
+            <Col md={6} className="mb-4 d-flex align-items-stretch" key={index}>
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 variants={fadeInUp}
                 viewport={{ once: true, amount: 0.5 }}
+                className="w-100"
               >
-                <div className="text-center px-3">
-                  <Image
+                <Card
+                  className="feature-card text-center border-0 p-4 w-100"
+                  style={{
+                    height: "100%",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    transition: "box-shadow 0.3s ease-in-out",
+                  }}
+                >
+                  <img
                     src={feat.img}
                     alt={feat.title}
                     className="mb-3"
-                    fluid
+                    style={{
+                      width: "100px", // Increase image size
+                      display: "block",
+                      margin: "0 auto", // Center align the image
+                    }}
                   />
-                  <h3>{feat.title}</h3>
-                  <p>{feat.description}</p>
-                </div>
+                  <Card.Body>
+                  <Card.Title
+                      className="fw-bold"
+                      style={{ fontSize: "1.25rem" }} // Larger title
+                    >
+                      {feat.title}
+                    </Card.Title>
+                    <Card.Text
+                      className="text-muted"
+                      style={{ fontSize: "1rem" }} // Larger description
+                    >
+                      {feat.description}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
               </motion.div>
             </Col>
           ))}
         </Row>
       </Container>
+
+      {/* Inline CSS for hover effect */}
+      <style>
+        {`
+          .feature-card:hover {
+            box-shadow: 0px 8px 20px #ffc300 !important;
+          }
+        `}
+      </style>
     </section>
   );
 };

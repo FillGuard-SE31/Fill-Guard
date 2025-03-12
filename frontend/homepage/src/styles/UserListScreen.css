@@ -1,0 +1,91 @@
+/* UserListScreen.css */
+.user-list-container {
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+
+.modern-userlist-card {
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-modern {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  overflow: hidden;
+}
+
+.table-modern th {
+  background: #000;
+  color: #ffc300;
+  text-align: center;
+  padding: 12px;
+}
+
+.table-modern tbody tr {
+  background: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+
+.table-modern tbody tr:hover {
+  background: #f9f9f9;
+  transform: scale(1.02);
+}
+
+.user-email {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.user-email:hover {
+  text-decoration: underline;
+}
+
+.admin-badge {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.user-badge {
+  background-color: #28a745;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.modern-edit-btn {
+  background: #ffc300;
+  border: none;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.modern-edit-btn:hover {
+  background: #e0a800;
+}
+
+.modern-delete-btn {
+  background: #dc3545;
+  border: none;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.modern-delete-btn:hover {
+  background: #b02a37;
+}

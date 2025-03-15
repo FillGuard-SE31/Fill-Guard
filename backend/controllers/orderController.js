@@ -1,5 +1,7 @@
-import asyncHandler from '../middleware/asyncHandler.js';
-import Order from '../models/orderModel.js';
+// backend/controllers/orderController.js
+import asyncHandler from "../middleware/asyncHandler.js";
+import Order from "../models/orderModel.js";
+import Device from "../models/Device.js";
 
 /**
  * @desc  Create new order
@@ -22,9 +24,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error("No order items");
   }
 
-  // Ensure totalPrice is always valid
+  // Ensure totalPrice is a valid number and fix its precision
   const fixedTotalPrice =
-    totalPrice && totalPrice > 0 ? totalPrice.toFixed(2) : "1.00";
+    totalPrice && totalPrice > 0 ? Number(totalPrice).toFixed(2) : "1.00";
 
   const order = new Order({
     user: req.user._id,
@@ -41,6 +43,21 @@ const addOrderItems = asyncHandler(async (req, res) => {
   });
 
   const createdOrder = await order.save();
+
+  // Create a Device document for each orderItem
+  for (let index = 0; index < createdOrder.orderItems.length; index++) {
+    const item = createdOrder.orderItems[index];
+    // Generate a serial number (for example: "<orderId>-<index+1>")
+    const serialNumber = `${createdOrder._id}-${index + 1}`;
+    const device = new Device({
+      product: item.product,
+      user: req.user._id,
+      order: createdOrder._id,
+      serialNumber,
+    });
+    await device.save();
+  }
+
   res.status(201).json(createdOrder);
 });
 
@@ -60,7 +77,10 @@ const getMyOrders = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate("user", "name email");
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
   if (order) {
     res.json(order);
   } else {
@@ -86,8 +106,8 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       email_address: req.body.payer.email_address,
     };
 
-    // Ensure totalPrice is valid
-    order.totalPrice = order.totalPrice > 0 ? order.totalPrice.toFixed(2) : "1.00";
+    order.totalPrice =
+      order.totalPrice > 0 ? Number(order.totalPrice).toFixed(2) : "1.00";
 
     const updatedOrder = await order.save();
     res.json(updatedOrder);

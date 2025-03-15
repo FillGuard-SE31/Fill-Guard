@@ -258,6 +258,127 @@
 
 
 
+// #include <Arduino.h>
+// #include <DHT.h>
+// #include <WiFi.h>
+// #include <WiFiClientSecure.h>
+// #include <PubSubClient.h>
+
+// // WiFi Credentials
+// const char* ssid = "SAHAN's Galaxy M13";
+// const char* password = "ydxb6605";
+
+// // HiveMQ Cloud MQTT Broker Details
+// const char* mqtt_server = "03d4193996fb46f9a16b3e6e0bf42f68.s1.eu.hivemq.cloud";  // Replace with actual cluster ID
+// const int mqtt_port = 8883;
+// const char* topic = "fillguard/sensorData";
+
+// // MQTT Authentication Credentials
+// const char* mqtt_user = "fillguard";
+// const char* mqtt_password = "Fillguardse31";
+
+// // Ultrasonic Sensor Pins
+// const int trigPin = 5;
+// const int echoPin = 18;
+
+// // Bin Configuration
+// const float binHeight = 50.0;
+// const float binMinHeight = 5.0;
+
+// // DHT-11 Sensor
+// #define DHTPIN 4
+// #define DHTTYPE DHT11
+// DHT dht(DHTPIN, DHTTYPE);
+
+// // Use WiFiClientSecure for TLS connection
+// WiFiClientSecure secureClient;
+// PubSubClient client(secureClient);
+
+// #define SOUND_SPEED 0.034  // Speed of sound in cm/μs
+
+// void connectWiFi() {
+//   WiFi.begin(ssid, password);
+//   Serial.print("Connecting to WiFi...");
+//   while (WiFi.status() != WL_CONNECTED) {
+//     delay(500);
+//     Serial.print(".");
+//   }
+//   Serial.println("\n✅ Connected to WiFi!");
+// }
+
+// void connectMQTT() {
+//   if (client.connected()) return;
+
+//   Serial.print("Connecting to MQTT...");
+//   while (!client.connected()) {
+//     if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
+//       Serial.println("\n✅ Connected to HiveMQ Cloud MQTT Broker!");
+//       client.subscribe(topic);
+//     } else {
+//       Serial.print("❌ Failed, rc=");
+//       Serial.print(client.state());
+//       Serial.println(" Retrying in 5 seconds...");
+//       delay(5000);
+//     }
+//   }
+// }
+
+// float calculateFillPercentage(float distanceCm) {
+//   if (distanceCm > binHeight) distanceCm = binHeight;
+//   if (distanceCm < binMinHeight) distanceCm = binMinHeight;
+//   float fillLevel = (1 - ((distanceCm - binMinHeight) / (binHeight - binMinHeight))) * 100;
+//   return constrain(fillLevel, 0, 100);
+// }
+
+// void setup() {
+//   Serial.begin(115200);
+//   pinMode(trigPin, OUTPUT);
+//   pinMode(echoPin, INPUT);
+//   dht.begin();
+
+//   connectWiFi();
+
+//   // Allow insecure connection for testing (use proper certificates in production)
+//   secureClient.setInsecure();
+
+//   client.setServer(mqtt_server, mqtt_port);
+// }
+
+// void loop() {
+//   if (!client.connected()) {
+//     connectMQTT();
+//   }
+//   client.loop();
+  
+//   // --- Read Ultrasonic Sensor ---
+//   digitalWrite(trigPin, LOW);
+//   delayMicroseconds(2);
+//   digitalWrite(trigPin, HIGH);
+//   delayMicroseconds(10);
+//   digitalWrite(trigPin, LOW);
+  
+//   long duration = pulseIn(echoPin, HIGH);
+//   float distanceCm = duration * SOUND_SPEED / 2;
+//   float binFillLevel = calculateFillPercentage(distanceCm);
+
+//   // --- Read DHT Sensor ---
+//   float humidity = dht.readHumidity();
+//   float temperatureC = dht.readTemperature();
+
+//   if (isnan(humidity) || isnan(temperatureC)) {
+//     Serial.println("❌ Failed to read from DHT sensor!");
+//   } else {
+//     String payload = "{\"fillLevel\": " + String(binFillLevel) +
+//                      ", \"temperature\": " + String(temperatureC) +
+//                      ", \"humidity\": " + String(humidity) + "}";
+//     Serial.print("📡 Sending Data: ");
+//     Serial.println(payload);
+//     client.publish(topic, payload.c_str());
+//   }
+
+//   delay(5000);  // Delay between publishes
+// }
+
 #include <Arduino.h>
 #include <DHT.h>
 #include <WiFi.h>
@@ -269,13 +390,16 @@ const char* ssid = "SAHAN's Galaxy M13";
 const char* password = "ydxb6605";
 
 // HiveMQ Cloud MQTT Broker Details
-const char* mqtt_server = "03d4193996fb46f9a16b3e6e0bf42f68.s1.eu.hivemq.cloud";  // Replace with actual cluster ID
+const char* mqtt_server = "03d4193996fb46f9a16b3e6e0bf42f68.s1.eu.hivemq.cloud";
 const int mqtt_port = 8883;
 const char* topic = "fillguard/sensorData";
 
 // MQTT Authentication Credentials
 const char* mqtt_user = "fillguard";
 const char* mqtt_password = "Fillguardse31";
+
+// Add a device identifier (update this to match your actual device ObjectID or unique ID)
+const char* deviceId = "67d507e1c740b76094a91388";
 
 // Ultrasonic Sensor Pins
 const int trigPin = 5;
@@ -368,7 +492,8 @@ void loop() {
   if (isnan(humidity) || isnan(temperatureC)) {
     Serial.println("❌ Failed to read from DHT sensor!");
   } else {
-    String payload = "{\"fillLevel\": " + String(binFillLevel) +
+    // Include the deviceId in the payload so that the server can populate the 'device' field
+    String payload = "{\"deviceId\": \"" + String(deviceId) + "\", \"fillLevel\": " + String(binFillLevel) +
                      ", \"temperature\": " + String(temperatureC) +
                      ", \"humidity\": " + String(humidity) + "}";
     Serial.print("📡 Sending Data: ");

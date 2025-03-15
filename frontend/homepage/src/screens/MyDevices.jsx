@@ -27,6 +27,9 @@ const Dashboard = () => {
   const [tempHumidityData, setTempHumidityData] = useState([]);
   const [report, setReport] = useState({ avgTemp: 0, avgHumidity: 0, fillFrequency: 0 });
 
+  // New state to track if the bin was previously above 80%
+  const [wasAboveThreshold, setWasAboveThreshold] = useState(false);
+
   useEffect(() => {
     const socket = io("http://localhost:5002");
 
@@ -58,7 +61,15 @@ const Dashboard = () => {
         setReport((prev) => {
           const newAvgTemp = (prev.avgTemp + temperature) / 2;
           const newAvgHumidity = (prev.avgHumidity + humidity) / 2;
-          const newFillFrequency = prev.fillFrequency + (binFillLevel > 80 ? 1 : 0);
+          let newFillFrequency = prev.fillFrequency;
+
+          // Increment fill frequency only when crossing above 80%
+          if (binFillLevel > 80 && !wasAboveThreshold) {
+            newFillFrequency += 1;
+            setWasAboveThreshold(true); // Mark as above threshold
+          } else if (binFillLevel <= 80) {
+            setWasAboveThreshold(false); // Reset when below threshold
+          }
   
           return { avgTemp: newAvgTemp, avgHumidity: newAvgHumidity, fillFrequency: newFillFrequency };
         });
@@ -68,7 +79,7 @@ const Dashboard = () => {
     });
   
     return () => socket.disconnect();
-  }, []);
+  }, [wasAboveThreshold]);
 
   return (
     <Container className="mt-4 text-center">

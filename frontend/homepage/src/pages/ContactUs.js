@@ -5,10 +5,9 @@ import {
   MessageSquare,
   Mail,
   Phone,
-  ArrowLeft,
+  Loader,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import "../styles/ContactPage.css";
 
 const fadeInUp = {
@@ -17,7 +16,6 @@ const fadeInUp = {
 };
 
 const ContactPage = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,6 +24,7 @@ const ContactPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,17 +33,43 @@ const ContactPage = () => {
   const validateForm = () => {
     const tempErrors = {};
     if (!formData.name.trim()) tempErrors.name = "Name is required";
-    if (!formData.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
+    if (!formData.email.match(/^[\w.-]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
       tempErrors.email = "Valid email required";
     if (!formData.message.trim()) tempErrors.message = "Message is required";
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validateForm()) {
-      console.log("Form submitted:", formData);
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:8000/api/contactus", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Your message has been sent successfully!");
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        } else {
+          alert(
+            data.message ||
+              "There was an issue sending your message, please try again."
+          );
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("There was an error, please try again later.");
+      }
+      setLoading(false);
     }
   };
 
@@ -162,7 +187,7 @@ const ContactPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`form-control ${errors.name ? "error" : ""} ${formData.name ? "filled" : ""}`}
+                  className={`form-control ${errors.name ? "error" : ""}`}
                   placeholder="Maxwell"
                 />
                 {errors.name && (
@@ -177,7 +202,7 @@ const ContactPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`form-control ${errors.email ? "error" : ""} ${formData.email ? "filled" : ""}`}
+                  className={`form-control ${errors.email ? "error" : ""}`}
                   placeholder="john@example.com"
                 />
                 {errors.email && (
@@ -191,11 +216,11 @@ const ContactPage = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`form-control ${formData.subject ? "filled" : ""}`}
+                  className="form-control"
                 >
                   <option value="">Select a subject</option>
-                  <option value="General">General Inquiry</option>
-                  <option value="Support">Technical Support</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Technical Support">Technical Support</option>
                   <option value="Feedback">Feedback</option>
                 </select>
               </div>
@@ -206,7 +231,7 @@ const ContactPage = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`form-control ${errors.message ? "error" : ""} ${formData.message ? "filled" : ""}`}
+                  className={`form-control ${errors.message ? "error" : ""}`}
                   placeholder="Your message here..."
                   rows="5"
                 />
@@ -218,10 +243,15 @@ const ContactPage = () => {
               <motion.button
                 type="submit"
                 className="submit-button btn btn-lg"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={loading}
+                whileHover={!loading ? { scale: 1.02 } : {}}
+                whileTap={!loading ? { scale: 0.98 } : {}}
               >
-                Send
+                {loading ? (
+                  <Loader className="loading-icon" size={20} />
+                ) : (
+                  "Send"
+                )}
               </motion.button>
             </form>
           </motion.div>

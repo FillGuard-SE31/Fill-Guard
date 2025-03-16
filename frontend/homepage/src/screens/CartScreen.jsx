@@ -34,10 +34,10 @@ const CartScreen = () => {
 
   return (
     <Row>
-      <Col md={8}>
-        <h1 style={{ marginBottom: '20px' }}>Shopping Cart</h1>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '50px'}}>Shopping Cart</h1>
+      <Col md={8}>        
         {cartItems.length === 0 ? (
-          <Message>
+          <Message >
             Your cart is empty <Link to='/'>Go Back</Link>
           </Message>
         ) : (
@@ -85,39 +85,59 @@ const CartScreen = () => {
       <Col md={4}>
         <Card>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                items
-              </h2>
-              $
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  padding: "10px 20px",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s ease",
-                }}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
-              >
-                Proceed To Checkout
-              </Button>
-            </ListGroup.Item>
+                <ListGroup.Item style={{ border: 'none', padding: '20px', textAlign: 'left' }}>
+                  {/* First Row - Item Count & Total Price */}
+                  <div style={{
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    fontSize: '16px', 
+                    fontWeight: 'bold',
+                    marginBottom: '10px'
+                  }}>
+                    <span>Item ({cartItems.reduce((acc, item) => acc + item.qty, 0)})</span>
+                    <span>US ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</span>
+                  </div>
+
+                  {/* Second Row - Subtotal Text & Price */}
+                  <div style={{
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    fontSize: '22px',
+                    fontWeight: 'bold',
+                    marginBottom: '15px'
+                  }}>
+                    <span>Subtotal</span>
+                    <span>US ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</span>
+                  </div>
+
+                  {/* Checkout Button */}
+                  <Button
+                    type="button"
+                    className="btn-block"
+                    disabled={cartItems.length === 0}
+                    onClick={checkoutHandler}
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      padding: "12px",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease",
+                      borderRadius: "30px",
+                      fontSize: "18px",
+                      width: "100%",
+                    }}
+                    onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                    onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
+                  >
+                    Go to checkout
+                  </Button>
+                </ListGroup.Item>
           </ListGroup>
         </Card>
       </Col>
+
     </Row>
   );
 };

@@ -399,7 +399,7 @@ const char* mqtt_user = "fillguard";
 const char* mqtt_password = "Fillguardse31";
 
 // Add a device identifier (update this to match your actual device ObjectID or unique ID)
-const char* deviceId = "67d507e1c740b76094a91388";
+const char* deviceId = "67d6ef330991a8ec9af320ca";
 
 // Ultrasonic Sensor Pins
 const int trigPin = 5;

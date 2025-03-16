@@ -1,7 +1,9 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import connectDB from './config/db.js';
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import connectDB from "./config/db.js";
+
+import contactRoutes from "./routes/contactRoutes.js";
 
 // 1) Load .env variables first
 dotenv.config();
@@ -14,9 +16,10 @@ app.use(cors());
 app.use(express.json());
 
 // Test route
-app.get('/', (req, res) => {
-  res.send('FillGuard Backend API is running...');
+app.get("/", (req, res) => {
+  res.send("FillGuard Backend API is running...");
 });
+app.use("/api/contactus", contactRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

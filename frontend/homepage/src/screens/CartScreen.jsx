@@ -101,6 +101,16 @@ const CartScreen = () => {
                 className='btn-block'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "10px 20px",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s ease",
+                }}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
               >
                 Proceed To Checkout
               </Button>

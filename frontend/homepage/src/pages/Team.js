@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "../styles/Team.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import p1 from "../assets/img/Dulan.jpg";
+import p1 from "../assets/img/Dulan.jpeg";
 import p2 from "../assets/img/Sahan.jpg";
 import p3 from "../assets/img/isuruDissanayake.jpg";
 import p4 from "../assets/img/Channaka.jpeg";

@@ -1,3 +1,4 @@
+//src/pages/ContactUs.js
 import React, { useState } from "react";
 import {
   Github,
@@ -9,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import "../styles/ContactPage.css";
+import { toast } from "react-toastify";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
@@ -19,8 +21,8 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
     subject: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -42,35 +44,26 @@ const ContactPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (validateForm()) {
-      setLoading(true);
-      try {
-        const response = await fetch("http://localhost:8000/api/contactus", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          alert("Your message has been sent successfully!");
-          setFormData({ name: "", email: "", subject: "", message: "" });
-        } else {
-          alert(
-            data.message ||
-              "There was an issue sending your message, please try again."
-          );
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("There was an error, please try again later.");
+    if (!validateForm()) return;
+    setLoading(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
       }
-      setLoading(false);
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast.error(error.message || "Error sending message.");
     }
+    setLoading(false);
   };
 
   return (
@@ -100,7 +93,7 @@ const ContactPage = () => {
             >
               Feel free to reach out and discover how our IoT devices can
               transform your business. Let's connect and make your operations
-              more efficient together! Ready to transform your waste management
+              more efficient together! Ready to transform your waste management
               or industrial operations?
             </motion.p>
 
@@ -115,7 +108,7 @@ const ContactPage = () => {
                 </div>
                 <div className="contact-details">
                   <h3>Email</h3>
-                  <p>contact@example.com</p>
+                  <p>fillguard.iot@gmail.com</p>
                 </div>
               </motion.div>
 
@@ -129,7 +122,7 @@ const ContactPage = () => {
                 </div>
                 <div className="contact-details">
                   <h3>Phone</h3>
-                  <p>+1 (123) 456-7890</p>
+                  <p>+94778367910</p>
                 </div>
               </motion.div>
             </div>
@@ -159,7 +152,7 @@ const ContactPage = () => {
                   <Linkedin className="social-icon" size={24} />
                 </motion.a>
                 <motion.a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/+94778367910"
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ scale: 1.1 }}

@@ -10,7 +10,6 @@ import {
   Card,
 } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
-import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 
 const CartScreen = () => {
@@ -37,9 +36,15 @@ const CartScreen = () => {
         <h1 style={{ marginBottom: '20px', textAlign: 'center', marginTop: '50px' }}>Shopping Cart</h1>
         <Col md={8}>
         {cartItems.length === 0 ? (
-          <Message>
-            Your cart is empty <Link to='/'>Go Back</Link>
-          </Message>
+          <div style={{ 
+            backgroundColor: '#605c5c', 
+            padding: '15px', 
+            borderRadius: '5px',
+            marginBottom: '20px',
+            color: 'white'
+          }}>
+            Your cart is empty <Link to='/shop' style={{ color: 'white' }}>Go To Shop</Link>
+          </div>
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (

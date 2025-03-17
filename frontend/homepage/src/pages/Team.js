@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "../styles/Team.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import p1 from "../assets/img/Dulan.jpg";
+import p1 from "../assets/img/Dulan.jpeg";
 import p2 from "../assets/img/Sahan.jpg";
 import p3 from "../assets/img/isuruDissanayake.jpg";
 import p4 from "../assets/img/Channaka.jpeg";
@@ -10,7 +10,7 @@ import p5 from "../assets/img/Deyanas.jpg";
 import p6 from "../assets/img/Satheeth.JPG";
 
 const teamMembers = [
-  { id: 1, name: "Hansaja Fernando", role: "About Me", image: p1, linkedin: "https://www.linkedin.com/in/dulan-fernando-650724267" },
+  { id: 1, name: "Dulan Fernando", role: "About Me", image: p1, linkedin: "https://www.linkedin.com/in/dulan-fernando-650724267" },
   { id: 2, name: "Sahan Embogama", role: "About Me", image: p2, linkedin: "https://www.linkedin.com/in/sahan-embogama-82475b2b5" },
   { id: 3, name: "Isuru Dissanayake", role: "About Me", image: p3, linkedin: "https://www.linkedin.com/in/isuru-dissanayake-9148802aa" },
   { id: 4, name: "Channaka Abeysinghe", role: "About Me", image: p4, linkedin: "https://www.linkedin.com/in/channaka-abeysinghe" },

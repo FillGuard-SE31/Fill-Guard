@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+import mongoose from "mongoose";
+import "dotenv/config";
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -19,4 +19,4 @@ mongoose
     process.exit(1);
   });
 
-module.exports = mongoose;
+export default mongoose;

@@ -1,0 +1,90 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modern-profile-card {
+  width: 100%;
+  max-width: 450px;
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-profile-btn {
+  background: #000000cd;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.modern-profile-btn:hover {
+  background: #000;
+  color: #ffc300;
+}
+
+.modern-orders-card {
+  width: 100%;
+  max-width: 1200px;
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-orders-btn {
+  background: #000000cd;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.modern-orders-btn:hover {
+  background: #000;
+  color: #ffc300;
+}
+
+.form-floating .form-control {
+  border-radius: 8px;
+}
+
+.form-floating label {
+  color: #6d664d;
+}
+
+.form-floating .form-control:focus {
+  border-color: #dddddd;
+  box-shadow: 0 0 5px #ffc300;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .modern-profile-card,
+  .modern-orders-card {
+    width: 90%;
+  }
+}
+.modern-orders-btn:focus,
+.modern-orders-btn:active,
+.modern-profile-btn:focus,
+.modern-profile-btn:active {
+  background-color: #000 !important;
+  color: #ffc300 !important;
+  box-shadow: none !important; 
+}

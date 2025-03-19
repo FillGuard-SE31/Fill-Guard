@@ -1,0 +1,127 @@
+/* Full Page Styling */
+.product-edit-container {
+  min-height: 100vh;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modern Card Design */
+.modern-productedit-card {
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 550px;
+  width: 100%;
+}
+
+/* Back Button */
+.modern-go-back {
+  background: none;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.modern-go-back:hover {
+  color: #ffc300;
+}
+
+/* Form Styling */
+.form-floating .form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-floating label {
+  color: #6d664d;
+}
+
+.form-floating .form-control:focus {
+  border-color: #dddddd;
+  box-shadow: 0 0 5px #ffc300;
+}
+
+/* Upload Button Styling */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* Upload Button */
+.modern-upload-btn {
+  background: #333;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+/* Apply hover effect when hovering over the entire wrapper */
+.upload-btn-wrapper:hover .modern-upload-btn {
+  background: #000;
+  color: #ffc300;
+}
+
+/* Ensure the hidden input covers the button */
+.upload-btn-wrapper input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Focus and Active States */
+.modern-upload-btn:focus,
+.modern-upload-btn:active {
+  background-color: #000 !important;
+  color: #ffc300 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Submit Button */
+.modern-productedit-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.modern-productedit-btn:hover {
+  background: #000;
+  color: #ffc300;
+}
+
+.modern-productedit-btn:focus,
+.modern-productedit-btn:active {
+  background: #000 !important;
+  color: #ffc300 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modern-productedit-card {
+    padding: 1.5rem;
+  }
+}

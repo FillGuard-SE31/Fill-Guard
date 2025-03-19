@@ -1,0 +1,58 @@
+.form-container {
+  min-height: 100vh; /* Full height for better vertical alignment */
+  padding: 0 0 6rem 0;
+}
+
+.modern-register-card {
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-register-btn {
+  background: #000000cd; /* Orange like the login button */
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.modern-register-btn:hover {
+  background: #000; /* Turns black on hover like the login button */
+  color: #ffc300;
+}
+
+.modern-register-btn:focus,
+.modern-register-btn:active {
+  background-color: #000 !important;
+  color: #ffc300 !important;
+  box-shadow: none !important; 
+}
+
+.text-center a {
+  color: #ffc400;
+  text-decoration: none;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+.form-floating .form-control {
+  border-radius: 8px;
+  /* border: 1px solid #ccc; */
+}
+
+.form-floating label {
+  color: #6d664d;
+}
+
+.form-floating .form-control:focus {
+  border-color: #dddddd;
+  box-shadow: 0 0 5px #ffc300;
+}

@@ -1,0 +1,89 @@
+/* OrderListScreen.css */
+.order-list-container {
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+
+.modern-orderlist-card {
+  border: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-modern {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  overflow: hidden;
+}
+
+.table-modern th {
+  background: #000;
+  color: #ffc300;
+  text-align: center;
+  padding: 12px;
+}
+
+.table-modern tbody tr {
+  background: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+
+.table-modern tbody tr:hover {
+  background: #f9f9f9;
+  transform: scale(1.02);
+}
+
+.status-paid {
+  background-color: #28a745;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-unpaid {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-delivered {
+  background-color: #28a745;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-pending {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.modern-details-btn {
+  background: #ffc300;
+  border: none;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.modern-details-btn:hover {
+  background: #e0a800;
+}

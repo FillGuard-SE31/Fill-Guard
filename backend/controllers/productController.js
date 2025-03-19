@@ -30,7 +30,7 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 /**
- * @desc  Create a product (sample)
+ * @desc  Create a product
  * @route POST /api/products
  * @access Private/Admin
  */
@@ -38,7 +38,7 @@ const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     name: 'Sample name',
     price: 0,
-    user: req.user._id,   // The admin who created it
+    user: req.user._id,
     image: '/images/sample.jpg',
     brand: 'Sample brand',
     category: 'Sample category',
@@ -95,10 +95,62 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc   Add a new review to a product
+ * @route  POST /api/products/:id/reviews
+ * @access Private (user must be logged in)
+ */
+const addProductReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+
+  // Find the product in the DB
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+
+  // Check if this user already reviewed the product
+  const alreadyReviewed = product.reviews.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (alreadyReviewed) {
+    res.status(400);
+    throw new Error('Product already reviewed by this user');
+  }
+
+  // Create a new review object
+  const review = {
+    user: req.user._id,
+    name: req.user.name, // or you can let them pass "name" from the frontend
+    rating: Number(rating),
+    comment,
+  };
+
+  // Push the review into the product's reviews array
+  product.reviews.push(review);
+
+  // Update the number of reviews
+  product.numReviews = product.reviews.length;
+
+  // Recalculate the average rating
+  product.rating =
+    product.reviews.reduce((acc, item) => acc + item.rating, 0) /
+    product.reviews.length;
+
+  await product.save();
+
+  res.status(201).json({ message: 'Review added successfully' });
+});
+
 export {
   getProducts,
   getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
+  // NEW OR UPDATED
+  addProductReview,
 };

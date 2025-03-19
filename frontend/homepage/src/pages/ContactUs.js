@@ -1,3 +1,4 @@
+//src/pages/ContactUs.js
 import React, { useState } from "react";
 import {
   Github,
@@ -5,11 +6,11 @@ import {
   MessageSquare,
   Mail,
   Phone,
-  ArrowLeft,
+  Loader,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import "../styles/ContactPage.css";
+import { toast } from "react-toastify";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
@@ -17,15 +18,15 @@ const fadeInUp = {
 };
 
 const ContactPage = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
     subject: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,18 +35,35 @@ const ContactPage = () => {
   const validateForm = () => {
     const tempErrors = {};
     if (!formData.name.trim()) tempErrors.name = "Name is required";
-    if (!formData.email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
+    if (!formData.email.match(/^[\w.-]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/))
       tempErrors.email = "Valid email required";
     if (!formData.message.trim()) tempErrors.message = "Message is required";
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
+    if (!validateForm()) return;
+    setLoading(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast.error(error.message || "Error sending message.");
     }
+    setLoading(false);
   };
 
   return (
@@ -75,7 +93,7 @@ const ContactPage = () => {
             >
               Feel free to reach out and discover how our IoT devices can
               transform your business. Let's connect and make your operations
-              more efficient together! Ready to transform your waste management
+              more efficient together! Ready to transform your waste management
               or industrial operations?
             </motion.p>
 
@@ -90,7 +108,7 @@ const ContactPage = () => {
                 </div>
                 <div className="contact-details">
                   <h3>Email</h3>
-                  <p>contact@example.com</p>
+                  <p>fillguard.iot@gmail.com</p>
                 </div>
               </motion.div>
 
@@ -104,7 +122,7 @@ const ContactPage = () => {
                 </div>
                 <div className="contact-details">
                   <h3>Phone</h3>
-                  <p>+1 (123) 456-7890</p>
+                  <p>+94778367910</p>
                 </div>
               </motion.div>
             </div>
@@ -134,7 +152,7 @@ const ContactPage = () => {
                   <Linkedin className="social-icon" size={24} />
                 </motion.a>
                 <motion.a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/+94778367910"
                   target="_blank"
                   rel="noreferrer"
                   whileHover={{ scale: 1.1 }}
@@ -162,7 +180,7 @@ const ContactPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`form-control ${errors.name ? "error" : ""} ${formData.name ? "filled" : ""}`}
+                  className={`form-control ${errors.name ? "error" : ""}`}
                   placeholder="Maxwell"
                 />
                 {errors.name && (
@@ -177,7 +195,7 @@ const ContactPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`form-control ${errors.email ? "error" : ""} ${formData.email ? "filled" : ""}`}
+                  className={`form-control ${errors.email ? "error" : ""}`}
                   placeholder="john@example.com"
                 />
                 {errors.email && (
@@ -191,11 +209,11 @@ const ContactPage = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`form-control ${formData.subject ? "filled" : ""}`}
+                  className="form-control"
                 >
                   <option value="">Select a subject</option>
-                  <option value="General">General Inquiry</option>
-                  <option value="Support">Technical Support</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Technical Support">Technical Support</option>
                   <option value="Feedback">Feedback</option>
                 </select>
               </div>
@@ -206,7 +224,7 @@ const ContactPage = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`form-control ${errors.message ? "error" : ""} ${formData.message ? "filled" : ""}`}
+                  className={`form-control ${errors.message ? "error" : ""}`}
                   placeholder="Your message here..."
                   rows="5"
                 />
@@ -218,10 +236,15 @@ const ContactPage = () => {
               <motion.button
                 type="submit"
                 className="submit-button btn btn-lg"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={loading}
+                whileHover={!loading ? { scale: 1.02 } : {}}
+                whileTap={!loading ? { scale: 0.98 } : {}}
               >
-                Send
+                {loading ? (
+                  <Loader className="loading-icon" size={20} />
+                ) : (
+                  "Send"
+                )}
               </motion.button>
             </form>
           </motion.div>

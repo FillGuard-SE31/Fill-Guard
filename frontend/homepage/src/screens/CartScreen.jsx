@@ -158,7 +158,7 @@ const CartScreen = () => {
             borderRadius: '5px',
             marginBottom: '20px',
             color: 'white',
-            marginLeft: '20px',
+            marginLeft: '20px'
           }}>
             Your cart is empty <Link to='/shop' style={{ color: 'white' }}>Go To Shop</Link>
           </div>

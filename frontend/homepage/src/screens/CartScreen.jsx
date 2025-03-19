@@ -157,7 +157,8 @@ const CartScreen = () => {
             padding: '15px', 
             borderRadius: '5px',
             marginBottom: '20px',
-            color: 'white'
+            color: 'white',
+            marginLeft: '20px',
           }}>
             Your cart is empty <Link to='/shop' style={{ color: 'white' }}>Go To Shop</Link>
           </div>
@@ -204,7 +205,7 @@ const CartScreen = () => {
           </ListGroup>
         )}
       </Col>
-      <Col md={4}>
+      <Col md={4} style={{ paddingBottom: "400px" }}>
         <Card>
           <ListGroup variant='flush'>
           <ListGroup.Item style={{ border: 'none', padding: '20px', textAlign: 'left' }}>
@@ -256,10 +257,12 @@ const CartScreen = () => {
                      Go to checkout
                    </Button>
                  </ListGroup.Item>
+                 
           </ListGroup>
         </Card>
       </Col>
     </Row>
+    
   );
 };
 

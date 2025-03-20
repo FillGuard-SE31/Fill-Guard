@@ -157,7 +157,7 @@ const Feature = () => {
       <Container>
         <Row>
           <Col>
-            <h2 className="text-center mb-5">Explore Our Features</h2>
+            <h2 className="text-center mb-5 fw-bold fs-1" >Explore Our Features</h2>
           </Col>
         </Row>
 

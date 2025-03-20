@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Col } from 'react-bootstrap';
+import { Form, Button, Col, Card} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer';
@@ -30,10 +30,12 @@ const PaymentScreen = () => {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
+      <Card className="shadow-lg p-4 modern-shipping-card">
+        <Card.Body>
+        <h2 className="text-center mb-3">Payment</h2>
       <Form onSubmit={submitHandler}>
         <Form.Group>
-          <Form.Label as='legend'>Select Method</Form.Label>
+          <Form.Label as='legend'>Select Your Payment Method</Form.Label>
           <Col>
             <Form.Check
               className='my-2'
@@ -45,13 +47,37 @@ const PaymentScreen = () => {
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
+            <Form.Check
+              className='my-2'
+              type='radio'
+              label='Credit Card'
+              id='CreditCard'
+              name='paymentMethod'
+              value='CreditCard'
+              onChange={(e) => setPaymentMethod(e.target.value)}></Form.Check>
           </Col>
         </Form.Group>
 
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
+        <div className="text-center mt-3">
+        <Button type="submit" variant="primary" style={{
+                       backgroundColor: "black",
+                       color: "white",
+                       padding: "12px",
+                       border: "none",
+                       cursor: "pointer",
+                       transition: "background-color 0.3s ease",
+                       borderRadius: "30px",
+                       fontSize: "18px",
+                       width: "25%"
+                     }}
+                     onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                     onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}>
+                  Continue
+               </Button>
+               </div>
       </Form>
+      </Card.Body>
+      </Card>
     </FormContainer>
   );
 };

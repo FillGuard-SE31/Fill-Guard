@@ -239,6 +239,19 @@ const ContactPage = () => {
                 disabled={loading}
                 whileHover={!loading ? { scale: 1.02 } : {}}
                 whileTap={!loading ? { scale: 0.98 } : {}}
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "12px",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s ease",
+                  borderRadius: "30px",
+                  fontSize: "18px",
+                  width: "100%",
+                }}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
               >
                 {loading ? (
                   <Loader className="loading-icon" size={20} />

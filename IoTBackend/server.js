@@ -79,6 +79,8 @@ client.on("message", async (topic, message) => {
       fillLevel: data.fillLevel,
       temperature: data.temperature,
       humidity: data.humidity,
+      latitude: data.latitude,     // Save GPS latitude
+      longitude: data.longitude,   // Save GPS longitude
     };
 
     // Save sensor data to MongoDB
@@ -92,6 +94,8 @@ client.on("message", async (topic, message) => {
       binFillLevel: data.fillLevel,
       temperature: data.temperature,
       humidity: data.humidity,
+      latitude: data.latitude,
+      longitude: data.longitude,
       timestamp: new Date().toLocaleTimeString(),
       deviceId: data.deviceId,
     });

@@ -99,7 +99,7 @@ function Offer() {
       <Container>
         <Row>
           <Col>
-            <h2 className="text-center mb-4">Discover What We Offer</h2>
+            <h2 className="text-center mb-4 fw-bold fs-1">Discover What We Offer</h2>
           </Col>
         </Row>
 

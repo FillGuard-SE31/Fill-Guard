@@ -354,7 +354,6 @@
 
 // export default PlaceOrderScreen;
 
-
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -377,12 +376,12 @@ const PlaceOrderScreen = () => {
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
   useEffect(() => {
-    if (!cart.shippingAddress.address) {
+    if (!cart.shippingAddress?.address) {
       navigate("/shipping");
     } else if (!cart.paymentMethod) {
       navigate("/payment");
     }
-  }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
+  }, [cart.paymentMethod, cart.shippingAddress?.address, navigate]);
 
   const placeOrderHandler = async () => {
     try {
@@ -418,24 +417,33 @@ const PlaceOrderScreen = () => {
         <Col md={8}>
           <Card className="p-4 shadow mx-auto" style={{ borderRadius: "12px", border: "none" }}>
             <ListGroup variant="flush">
+              {/* SHIPPING SECTION */}
               <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                <h2>Shipping</h2>
+                <h2 className="mb-0">Shipping</h2>
                 <Pencil style={{ cursor: "pointer" }} onClick={() => navigate("/shipping")} />
               </ListGroup.Item>
               <ListGroup.Item>
-                <strong>Address: </strong>{cart.shippingAddress.address}, {cart.shippingAddress.city} {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+                <strong>Address: </strong>
+                {cart.shippingAddress?.address}, {cart.shippingAddress?.city}{" "}
+                {cart.shippingAddress?.postalCode}, {cart.shippingAddress?.country}
               </ListGroup.Item>
-              
+
+              {/* PAYMENT SECTION */}
               <ListGroup.Item className="d-flex justify-content-between align-items-center">
-                <h2>Payment Method</h2>
+                <h2 className="mb-0">Payment Method</h2>
                 <Pencil style={{ cursor: "pointer" }} onClick={() => navigate("/payment")} />
               </ListGroup.Item>
               <ListGroup.Item>
-                <strong>Method: </strong>{cart.paymentMethod}
+                <strong>Method: </strong>
+                {cart.paymentMethod}
               </ListGroup.Item>
-              
+
+              {/* ORDER ITEMS SECTION */}
+              <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                <h2 className="mb-0">Order Items</h2>
+                <Pencil style={{ cursor: "pointer" }} onClick={() => navigate("/cart")} />
+              </ListGroup.Item>
               <ListGroup.Item>
-                <h2>Order Items</h2>
                 {cart.cartItems.length === 0 ? (
                   <Message>Your cart is empty</Message>
                 ) : (
@@ -447,9 +455,9 @@ const PlaceOrderScreen = () => {
                           <Link to="/shop">{item.name}</Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = <strong>${(item.qty * item.price).toFixed(2)}</strong>
+                          {item.qty} x ${item.price} ={" "}
+                          <strong>${(item.qty * item.price).toFixed(2)}</strong>
                         </Col>
-                        <Pencil style={{ cursor: "pointer" }} onClick={() => navigate("/cart")} />
                       </ListGroup.Item>
                     ))}
                   </ListGroup>
@@ -458,12 +466,12 @@ const PlaceOrderScreen = () => {
             </ListGroup>
           </Card>
         </Col>
-        
+
         <Col md={4}>
           <Card className="shadow mx-auto" style={{ borderRadius: "12px", border: "none" }}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2 className="text-center">Order Summary</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -485,33 +493,42 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col><strong>Total</strong></Col>
-                  <Col><strong>${Number(totalPrice).toFixed(2)}</strong></Col>
+                  <Col>
+                    <strong>Total</strong>
+                  </Col>
+                  <Col>
+                    <strong>${Number(totalPrice).toFixed(2)}</strong>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               {error && (
                 <ListGroup.Item>
-                  <Message variant="danger">{error?.data?.message || error?.error || "An error occurred"}</Message>
+                  <Message variant="danger">{error?.data?.message || "An error occurred"}</Message>
                 </ListGroup.Item>
               )}
               <ListGroup.Item>
-                <Button type="button" className="btn btn-primary w-100" disabled={cart.cartItems.length === 0} onClick={placeOrderHandler}
-                 style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  padding: "12px",
-                  border: "none",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s ease",
-                  borderRadius: "30px",
-                  fontSize: "18px",
-                  width: "25%",
-                  position: "center"
-                }}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}>
-                  Place Order
-                </Button>
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={cart.cartItems.length === 0}
+                    onClick={placeOrderHandler}
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      padding: "12px 30px",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease",
+                      borderRadius: "30px",
+                      fontSize: "18px",
+                    }}
+                    onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                    onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
+                  >
+                    Place Order
+                  </Button>
+                </div>
                 {isLoading && <Loader />}
               </ListGroup.Item>
             </ListGroup>

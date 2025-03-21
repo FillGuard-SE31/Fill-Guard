@@ -353,7 +353,6 @@
 // };
 
 // export default PlaceOrderScreen;
-
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -413,9 +412,9 @@ const PlaceOrderScreen = () => {
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
-      <Row className="justify-content-center mt-4 gap-4">
-        <Col md={8}>
-          <Card className="p-4 shadow mx-auto" style={{ borderRadius: "12px", border: "none" }}>
+      <Row className="justify-content-center mt-4 gx-4">
+        <Col md={7}>
+          <Card className="p-4 shadow" style={{ borderRadius: "12px", border: "none", marginLeft: "50px" }}>
             <ListGroup variant="flush">
               {/* SHIPPING SECTION */}
               <ListGroup.Item className="d-flex justify-content-between align-items-center">
@@ -467,8 +466,8 @@ const PlaceOrderScreen = () => {
           </Card>
         </Col>
 
-        <Col md={4}>
-          <Card className="shadow mx-auto" style={{ borderRadius: "12px", border: "none" }}>
+        <Col md={5}>
+          <Card className="p-4 shadow" style={{ borderRadius: "12px", border: "none", marginRight: "50px" }}>
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <h2 className="text-center">Order Summary</h2>
@@ -476,19 +475,25 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
+                  <Col className="text-end">
                   <Col>${Number(itemsPrice).toFixed(2)}</Col>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
+                  <Col className="text-end">
                   <Col>{Number(shippingPrice) === 0 ? "Free" : `$${Number(shippingPrice).toFixed(2)}`}</Col>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Row>
+                <Row>                
                   <Col>Tax</Col>
+                  <Col className="text-end">
                   <Col>${Number(taxPrice).toFixed(2)}</Col>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -497,7 +502,8 @@ const PlaceOrderScreen = () => {
                     <strong>Total</strong>
                   </Col>
                   <Col>
-                    <strong>${Number(totalPrice).toFixed(2)}</strong>
+                    <Col className="text-end">
+                    <strong>${Number(totalPrice).toFixed(2)}</strong></Col>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -534,8 +540,8 @@ const PlaceOrderScreen = () => {
             </ListGroup>
           </Card>
         </Col>
+        <span style={{ marginBottom: "175px", display: "block" }}></span>
       </Row>
-      <span style={{ marginBottom: "25px", display: "block" }}></span>
     </>
   );
 };

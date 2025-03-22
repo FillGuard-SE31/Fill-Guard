@@ -1,12 +1,12 @@
 //src/pages/ContactUs.js
 import React, { useState } from "react";
 import {
-  Github,
-  Linkedin,
+  Instagram, 
+  Youtube,
   MessageSquare,
   Mail,
   Phone,
-  Loader,
+  Loader
 } from "lucide-react";
 import { motion } from "framer-motion";
 import "../styles/ContactPage.css";
@@ -128,39 +128,39 @@ const ContactPage = () => {
             </div>
 
             <motion.div
-              className="social-section"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              <h3>Follow Us</h3>
-              <div className="social-links">
-                <motion.a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <Github className="social-icon" size={24} />
-                </motion.a>
-                <motion.a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <Linkedin className="social-icon" size={24} />
-                </motion.a>
-                <motion.a
-                  href="https://wa.me/+94778367910"
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <MessageSquare className="social-icon" size={24} />
-                </motion.a>
-              </div>
-            </motion.div>
+                className="social-section"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+              >   
+                <h3>Follow Us</h3>
+                <div className="social-links">
+                  <motion.a
+                    href="https://www.instagram.com/fillguard/"
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Instagram className="social-icon" size={24} />
+                  </motion.a>
+                  <motion.a
+                    href="https://youtube.com/@fillguard?si=_xPnt_vUOYZVpsh4"
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Youtube className="social-icon" size={24} />
+                  </motion.a>
+                  <motion.a
+                    href="https://wa.me/+94778367910"
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <MessageSquare className="social-icon" size={24} />
+                  </motion.a>
+                </div>
+              </motion.div>
           </motion.div>
 
           <motion.div

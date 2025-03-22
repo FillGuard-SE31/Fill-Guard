@@ -67,6 +67,79 @@
 
 // export default MapView;
 
+// // frontend/homepage/src/components/MapView.jsx
+// import React, { useEffect, useRef, useState } from "react";
+
+// const loadGoogleMaps = (callback) => {
+//   if (typeof window.google === "object" && typeof window.google.maps === "object") {
+//     callback();
+//   } else {
+//     const script = document.createElement("script");
+//     script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+//     script.async = true;
+//     script.defer = true;
+//     script.onload = callback;
+//     document.head.appendChild(script);
+//   }
+// };
+
+// const MapView = ({ latitude, longitude }) => {
+//   const mapRef = useRef(null);
+//   const googleMapRef = useRef(null);
+//   const markerRef = useRef(null);
+//   // Store last valid coordinates to fallback when new data is invalid
+//   const [lastValidCoords, setLastValidCoords] = useState(null);
+
+//   // Helper: check if coordinates are valid (non-zero)
+//   const isValid = (lat, lng) => {
+//     return lat !== undefined && lng !== undefined && !(lat === 0 && lng === 0);
+//   };
+
+//   // Load the map only once on mount
+//   useEffect(() => {
+//     loadGoogleMaps(() => {
+//       // Use valid coordinates if provided; otherwise, use a default location.
+//       const initialCoords = isValid(latitude, longitude)
+//         ? { lat: latitude, lng: longitude }
+//         : { lat: 0, lng: 0 }; 
+
+//       googleMapRef.current = new window.google.maps.Map(mapRef.current, {
+//         center: initialCoords,
+//         zoom: 16,
+//       });
+//       markerRef.current = new window.google.maps.Marker({
+//         position: initialCoords,
+//         map: googleMapRef.current,
+//         title: "Bin Location",
+//       });
+//       // Save initial valid coordinates if available
+//       if (isValid(initialCoords.lat, initialCoords.lng)) {
+//         setLastValidCoords(initialCoords);
+//       }
+//     });
+//   }, []); // Run only once
+
+//   // Update marker when new coordinates arrive
+//   useEffect(() => {
+//     if (isValid(latitude, longitude)) {
+//       const newPosition = { lat: latitude, lng: longitude };
+//       if (markerRef.current && googleMapRef.current) {
+//         markerRef.current.setPosition(newPosition);
+//         googleMapRef.current.setCenter(newPosition);
+//       }
+//       setLastValidCoords(newPosition);
+//     } else if (lastValidCoords && googleMapRef.current && markerRef.current) {
+//       // Fallback: if new coordinates are invalid, use the last valid coordinates
+//       markerRef.current.setPosition(lastValidCoords);
+//       googleMapRef.current.setCenter(lastValidCoords);
+//     }
+//   }, [latitude, longitude, lastValidCoords]);
+
+//   return <div ref={mapRef} style={{ height: "400px", width: "100%" }} />;
+// };
+
+// export default MapView;
+
 // frontend/homepage/src/components/MapView.jsx
 import React, { useEffect, useRef, useState } from "react";
 
@@ -87,21 +160,19 @@ const MapView = ({ latitude, longitude }) => {
   const mapRef = useRef(null);
   const googleMapRef = useRef(null);
   const markerRef = useRef(null);
-  // Store last valid coordinates to fallback when new data is invalid
   const [lastValidCoords, setLastValidCoords] = useState(null);
+  const [userInteracted, setUserInteracted] = useState(false);
 
-  // Helper: check if coordinates are valid (non-zero)
-  const isValid = (lat, lng) => {
-    return lat !== undefined && lng !== undefined && !(lat === 0 && lng === 0);
-  };
+  // Helper: returns true if lat/lng are defined and not both zero.
+  const isValid = (lat, lng) =>
+    lat !== undefined && lng !== undefined && !(lat === 0 && lng === 0);
 
-  // Load the map only once on mount
+  // Initialize the map only once when the component mounts.
   useEffect(() => {
     loadGoogleMaps(() => {
-      // Use valid coordinates if provided; otherwise, use a default location.
       const initialCoords = isValid(latitude, longitude)
         ? { lat: latitude, lng: longitude }
-        : { lat: 0, lng: 0 }; 
+        : { lat: 0, lng: 0 };
 
       googleMapRef.current = new window.google.maps.Map(mapRef.current, {
         center: initialCoords,
@@ -112,28 +183,36 @@ const MapView = ({ latitude, longitude }) => {
         map: googleMapRef.current,
         title: "Bin Location",
       });
-      // Save initial valid coordinates if available
       if (isValid(initialCoords.lat, initialCoords.lng)) {
         setLastValidCoords(initialCoords);
       }
+      // Track user interactions.
+      googleMapRef.current.addListener("dragstart", () => setUserInteracted(true));
+      googleMapRef.current.addListener("zoom_changed", () => setUserInteracted(true));
+      googleMapRef.current.addListener("idle", () => setUserInteracted(false));
     });
-  }, []); // Run only once
+  }, []); // Run once on mount
 
-  // Update marker when new coordinates arrive
+  // Update the marker and (optionally) the center when new coordinates arrive.
   useEffect(() => {
     if (isValid(latitude, longitude)) {
       const newPosition = { lat: latitude, lng: longitude };
       if (markerRef.current && googleMapRef.current) {
         markerRef.current.setPosition(newPosition);
-        googleMapRef.current.setCenter(newPosition);
+        // Only re-center if the user is not interacting.
+        if (!userInteracted) {
+          googleMapRef.current.setCenter(newPosition);
+        }
       }
       setLastValidCoords(newPosition);
     } else if (lastValidCoords && googleMapRef.current && markerRef.current) {
-      // Fallback: if new coordinates are invalid, use the last valid coordinates
+      // Fallback: if new coordinates are invalid, use the last valid coordinates.
       markerRef.current.setPosition(lastValidCoords);
-      googleMapRef.current.setCenter(lastValidCoords);
+      if (!userInteracted) {
+        googleMapRef.current.setCenter(lastValidCoords);
+      }
     }
-  }, [latitude, longitude, lastValidCoords]);
+  }, [latitude, longitude, lastValidCoords, userInteracted]);
 
   return <div ref={mapRef} style={{ height: "400px", width: "100%" }} />;
 };

@@ -1,4 +1,4 @@
-// backend/models/Device.js
+//IoTBackend/models/Device.js
 import mongoose from "mongoose";
 
 const deviceSchema = new mongoose.Schema({

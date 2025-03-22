@@ -1,4 +1,4 @@
-//frontend/homepage/src/screens/MyDevices.jsx
+// //frontend/homepage/src/screens/MyDevices.jsx
 import React, { useState, useEffect } from "react";
 import {
   Container,
@@ -184,11 +184,7 @@ const Dashboard = () => {
                     <h2 className="fw-bold">{fillLevel.toFixed(1)}%</h2>
                   </div>
                 </div>
-                <ProgressBar
-                  now={fillLevel}
-                  variant="primary"
-                  className="mt-3"
-                />
+                <ProgressBar now={fillLevel} variant="primary" className="mt-3" />
               </Card>
             </Col>
           </Row>
@@ -198,9 +194,7 @@ const Dashboard = () => {
             <Col md={6}>
               <Card className="p-4 shadow-lg bg-danger text-white">
                 <h3>🌡 Temperature</h3>
-                <h1 className="display-3 fw-bold">
-                  {temperature.toFixed(1)}°C
-                </h1>
+                <h1 className="display-3 fw-bold">{temperature.toFixed(1)}°C</h1>
               </Card>
             </Col>
             <Col md={6}>
@@ -286,10 +280,10 @@ const Dashboard = () => {
             </Row>
           )}
 
-          {/* PDF Report Button */}
+          {/* PDF Report Button with deviceId passed as prop */}
           <Row className="mb-4">
             <Col md={12} className="text-center">
-              <ReportDownload />
+              <ReportDownload deviceId={selectedDevice} />
             </Col>
           </Row>
         </>
@@ -305,4 +299,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

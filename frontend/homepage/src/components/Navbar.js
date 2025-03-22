@@ -102,17 +102,18 @@
 //   );
 // }
 
-// export default Navbar;
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { Navbar, Nav, NavDropdown, Container, Badge } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { NavLink } from 'react-router-dom'; // Import NavLink instead of LinkContainer
+import { HashLink } from 'react-router-hash-link';
 
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import logo from '../assets/img/Fill Guard Logo.png'; 
 
 function AppNavbar() {
   const dispatch = useDispatch();
@@ -135,13 +136,71 @@ function AppNavbar() {
     }
   };
 
+  // Inline styles
+  const styles = {
+    logoContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      position: 'relative',
+      textDecoration: 'none',
+    },
+    logoImage: {
+      height: '40px', // Adjust height as needed
+      width: 'auto',
+      transition: 'filter 0.3s ease',
+    },
+    logoText: {
+      position: 'absolute',
+      left: '100%', // Position text to the right of the logo
+      marginLeft: '10px', // Add some spacing between logo and text
+      opacity: 0, // Initially hidden
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      color: '#fff',
+      textShadow: '0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.8)',
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+    },
+    logoContainerHover: {
+      filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))', // Glow effect
+    },
+    logoTextHover: {
+      opacity: 1, // Show text on hover
+      transform: 'translateX(10px)', // Move text slightly to the right
+    },
+    // Add styles for dropdown items
+    dropdownItem: {
+      color: '#000 !important', // Force black text color with !important
+    },
+  };
+
   return (
     <Navbar style={{ backgroundColor: '#111' }} variant="dark" expand="lg" collapseOnSelect>
       <Container>
-        {/* Brand */}
-        <LinkContainer to="/">
-          <Navbar.Brand>FillGuard</Navbar.Brand>
-        </LinkContainer>
+        {/* Brand with Logo and Text Animation */}
+        <NavLink
+          to="/"
+          style={styles.logoContainer}
+          onMouseEnter={(e) => {
+            e.currentTarget.querySelector('.logo-text').style.opacity = styles.logoTextHover.opacity;
+            e.currentTarget.querySelector('.logo-text').style.transform = styles.logoTextHover.transform;
+            e.currentTarget.querySelector('.logo-image').style.filter = styles.logoContainerHover.filter;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.querySelector('.logo-text').style.opacity = styles.logoText.opacity;
+            e.currentTarget.querySelector('.logo-text').style.transform = 'translateX(0)';
+            e.currentTarget.querySelector('.logo-image').style.filter = 'none';
+          }}
+        >
+          <img
+            src={logo}
+            alt="FillGuard Logo"
+            style={styles.logoImage}
+            className="logo-image"
+          />
+          <span style={styles.logoText} className="logo-text">
+            Fill Guard
+          </span>
+        </NavLink>
 
         {/* Mobile toggle */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -149,68 +208,69 @@ function AppNavbar() {
           <Nav className="ms-auto">
 
             {/* Fix for FAQ Link using pathname & hash */}
-            <Nav.Link href="/#faq">FAQ</Nav.Link>
+            <Nav.Link as={HashLink} to="/#faq" smooth>
+              FAQ
+            </Nav.Link>
 
-            <LinkContainer to="/product">
-              <Nav.Link>Product</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/team">
-              <Nav.Link>Team</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/shop">
-              <Nav.Link>Shop</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/contact-us">
-              <Nav.Link>Contact Us</Nav.Link>
-            </LinkContainer>
+            <Nav.Link as={NavLink} to="/product" activeClassName="active">
+              Product
+            </Nav.Link>
+
+            <Nav.Link as={NavLink} to="/team" activeClassName="active">
+              Team
+            </Nav.Link>
+
+            <Nav.Link as={NavLink} to="/shop" activeClassName="active">
+              Shop
+            </Nav.Link>
+
+            <Nav.Link as={NavLink} to="/contact-us" activeClassName="active">
+              Contact Us
+            </Nav.Link>
 
             {/* Cart Link */}
-            <LinkContainer to="/cart">
-              <Nav.Link>
-                <FaShoppingCart /> Cart
-                {cartItems.length > 0 && (
-                  <Badge pill bg="success" className="ms-1">
-                    {cartItems.reduce((a, c) => a + c.qty, 0)}
-                  </Badge>
-                )}
-              </Nav.Link>
-            </LinkContainer>
+            <Nav.Link as={NavLink} to="/cart" activeClassName="active">
+              <FaShoppingCart /> Cart
+              {cartItems.length > 0 && (
+                <Badge pill bg="success" className="ms-1">
+                  {cartItems.reduce((a, c) => a + c.qty, 0)}
+                </Badge>
+              )}
+            </Nav.Link>
 
             {/* If user is logged in */}
             {userInfo ? (
               <NavDropdown title={userInfo.name} id="username">
-                <LinkContainer to="/profile">
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/mydevices">
-                  <NavDropdown.Item>My Devices</NavDropdown.Item>
-                </LinkContainer>
+                <NavDropdown.Item as={NavLink} to="/profile" style={styles.dropdownItem}>
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/mydevices" style={styles.dropdownItem}>
+                  My Devices
+                </NavDropdown.Item>
 
                 {/* Admin-only options inside user dropdown */}
                 {userInfo.isAdmin && (
                   <>
                     <NavDropdown.Divider />
-                    <LinkContainer to="/admin/userlist">
-                      <NavDropdown.Item>Users</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/orderlist">
-                      <NavDropdown.Item>Orders</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/productlist">
-                      <NavDropdown.Item>Products</NavDropdown.Item>
-                    </LinkContainer>
+                    <NavDropdown.Item as={NavLink} to="/admin/userlist" style={styles.dropdownItem}>
+                      Users
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to="/admin/orderlist" style={styles.dropdownItem}>
+                      Orders
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to="/admin/productlist" style={styles.dropdownItem}>
+                      Products
+                    </NavDropdown.Item>
                   </>
                 )}
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler} style={styles.dropdownItem}>Logout</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FaUser /> Sign In
-                </Nav.Link>
-              </LinkContainer>
+              <Nav.Link as={NavLink} to="/login" activeClassName="active">
+                <FaUser /> Sign In
+              </Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>
@@ -218,4 +278,5 @@ function AppNavbar() {
     </Navbar>
   );
 }
+
 export default AppNavbar;

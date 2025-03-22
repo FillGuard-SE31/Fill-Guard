@@ -198,7 +198,7 @@ function AppNavbar() {
             className="logo-image"
           />
           <span style={styles.logoText} className="logo-text">
-            Fill Guard
+            FillGuard
           </span>
         </NavLink>
 

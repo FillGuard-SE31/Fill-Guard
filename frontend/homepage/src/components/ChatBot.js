@@ -1,9 +1,7 @@
-// ChatBot.js
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Button, Form, Card, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/ChatBot.css'; // Keep your custom styling
-
+import '../styles/ChatBot.css'; 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -26,29 +24,44 @@ const ChatBot = () => {
 
   const knowledgeBase = {
     "install": {
-      "response": "To install your FillGuard device, follow these steps: 1) Unbox the device, 2) Charge fully, 3) Download our app, 4) Follow in-app instructions to connect.",
-      "quickReplies": ["Installation issues", "App download", "Device not connecting"]
+      "response": "To install your FillGuard device, follow these steps: 1) Unbox the device, 2) Charge fully, 3) Login to our website, 4) Follow in-app instructions to connect.",
+      "quickReplies": ["Installation issues", "Login issues", "Device not connecting"]
     },
     "battery": {
       "response": "FillGuard batteries typically last 2-3 days on a full charge. Charging takes about 2 hours from empty to full.",
       "quickReplies": ["Battery issues", "Charging problems", "Power saving tips"]
     },
-    // Add more entries for common questions
+    "contact": {
+      "response": "You can contact our support team via email at support@fillguard.com or ",
+      "quickReplies": ["Install", "Troubleshoot","Device information"]
+    }
   };
-  
+
   const checkLocalKnowledge = (userInput) => {
+    console.log("Checking knowledge for:", userInput);
     const input = userInput.toLowerCase();
-    
-    for (const key in knowledgeBase) {
-      if (input.includes(key)) {
-        return knowledgeBase[key];
+
+    // Keywords mapping to knowledge base entries
+    const keywordMap = {
+      "install": ["install", "setup", "set up", "configure", "start"],
+      "battery": ["battery", "charge", "charging", "power", "battery life"],
+      "contact": ["contact", "support", "email", "phone", "help"]
+    };
+
+    // Check for keyword matches
+    for (const [key, keywords] of Object.entries(keywordMap)) {
+      for (const keyword of keywords) {
+        if (input.includes(keyword)) {
+          console.log("Match found:", key);
+          return knowledgeBase[key];
+        }
       }
     }
-    
+
+    console.log("No match found in knowledge base");
     return null; // No local match found
   };
 
-  
   // Scroll to bottom of messages
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -85,6 +98,7 @@ const ChatBot = () => {
 
   // Fetch response from OpenAI API
   const fetchOpenAIResponse = async (userMessage) => {
+    console.log("fetchOpenAIResponse called with:", userMessage); // Debugging
     setIsLoading(true);
     try {
       // Only send the last 3 messages to save tokens
@@ -92,7 +106,13 @@ const ChatBot = () => {
         role: msg.type === 'user' ? 'user' : 'assistant',
         content: msg.text
       }));
-      
+
+      console.log("Sending to OpenAI:", {
+        userMessage,
+        model: 'gpt-4o-mini',
+        messageCount: recentMessages.length,
+      });
+
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -100,39 +120,38 @@ const ChatBot = () => {
           'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-          model: 'gpt-3.5-turbo', // Make sure to use a model available in free tier
+          model: 'gpt-4o-mini',
           messages: [
             {
               role: 'system',
-              content: 'You are a helpful assistant for FillGuard devices. Keep responses very brief.'
+              content: 'You are a helpful assistant for waste management. Keep responses very brief and short.'
             },
             ...recentMessages,
             { role: 'user', content: userMessage }
           ],
-          max_tokens: 60, // Reduced for free tier
+          max_tokens: 60,
           temperature: 0.7
         })
       });
-  
+
+      console.log("OpenAI status:", response.status);
+
       // Handle potential rate limiting
       if (response.status === 429) {
         console.log('Rate limit reached');
         return "I'm processing too many requests right now. Please try again in a moment.";
       }
-  
+
       const data = await response.json();
-      
+      console.log("OpenAI response:", data);
+
       if (data.choices && data.choices[0] && data.choices[0].message) {
         return data.choices[0].message.content;
       } else {
         return fallbackResponses.default.response;
       }
     } catch (error) {
-      console.error('Error fetching from OpenAI:', error);
-      // Improved error handling for free tier issues
-      if (error.message.includes('429')) {
-        return "I've reached my request limit. Please try again later.";
-      }
+      console.error('Error fetching from OpenAI:', error.message);
       return fallbackResponses.default.response;
     } finally {
       setIsLoading(false);
@@ -143,20 +162,20 @@ const ChatBot = () => {
   const handleUserMessage = async (text) => {
     addUserMessage(text);
     setInputValue('');
-    
-    // First check if we can answer locally
-    const localAnswer = checkLocalKnowledge(text);
-    
-    if (localAnswer) {
-      // Use local knowledge base to save API calls
-      addBotMessage(localAnswer.response, localAnswer.quickReplies);
+
+    // First check local knowledge base
+    const localKnowledge = checkLocalKnowledge(text);
+
+    if (localKnowledge) {
+      // Use local response if available
+      addBotMessage(localKnowledge.response, localKnowledge.quickReplies);
     } else {
-      // Fall back to OpenAI
+      // Fallback to OpenAI API
       const aiResponse = await fetchOpenAIResponse(text);
-      
-      // Generate quick replies as before
+
+      // Generate quick replies
       let quickReplies = ['Tell me more', 'Troubleshooting', 'Contact support'];
-      
+
       // Add bot response
       addBotMessage(aiResponse, quickReplies);
     }
@@ -189,8 +208,8 @@ const ChatBot = () => {
   return (
     <>
       {!isOpen && (
-        <Button 
-          className="chat-button" 
+        <Button
+          className="chat-button"
           onClick={toggleChat}
           aria-label="Open chat support"
           variant="warning"
@@ -198,23 +217,23 @@ const ChatBot = () => {
           💬
         </Button>
       )}
-      
+
       {isOpen && (
         <Card className={`chat-container ${isCollapsed ? 'collapsed' : ''}`}>
           <Card.Header className="chat-header">
             <span>FillGuard Support</span>
             <div>
-              <Button 
+              <Button
                 variant="link"
-                className="toggle-chat-button" 
+                className="toggle-chat-button"
                 onClick={toggleCollapse}
                 aria-label={isCollapsed ? "Expand chat" : "Collapse chat"}
               >
                 {isCollapsed ? '+' : '−'}
               </Button>
-              <Button 
+              <Button
                 variant="link"
-                className="close-chat-button" 
+                className="close-chat-button"
                 onClick={toggleChat}
                 aria-label="Close chat"
               >
@@ -222,7 +241,7 @@ const ChatBot = () => {
               </Button>
             </div>
           </Card.Header>
-          
+
           <Card.Body className="chat-messages p-3">
             {messages.map((message, index) => (
               <div key={index} className="mb-3">
@@ -234,12 +253,12 @@ const ChatBot = () => {
                     </React.Fragment>
                   ))}
                 </div>
-                
+
                 {message.quickReplies && message.quickReplies.length > 0 && (
                   <div className="quick-replies">
                     {message.quickReplies.map((reply, replyIndex) => (
-                      <Button 
-                        key={replyIndex} 
+                      <Button
+                        key={replyIndex}
                         variant="outline-success"
                         size="sm"
                         className="quick-reply me-2 mt-2"
@@ -252,17 +271,17 @@ const ChatBot = () => {
                 )}
               </div>
             ))}
-            
+
             {isLoading && (
               <div className="text-center my-2">
                 <Spinner animation="border" variant="warning" size="sm" />
                 <span className="ms-2">Thinking...</span>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </Card.Body>
-          
+
           <Card.Footer className="p-2">
             <Form onSubmit={handleSubmit} className="d-flex">
               <Form.Control
@@ -273,9 +292,9 @@ const ChatBot = () => {
                 aria-label="Type your message"
                 disabled={isLoading}
               />
-              <Button 
-                type="submit" 
-                variant="warning" 
+              <Button
+                type="submit"
+                variant="warning"
                 className="ms-2"
                 disabled={isLoading}
               >

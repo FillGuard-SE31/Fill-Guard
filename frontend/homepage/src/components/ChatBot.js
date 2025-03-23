@@ -32,8 +32,12 @@ const ChatBot = () => {
       "quickReplies": ["Battery issues", "Charging problems", "Power saving tips"]
     },
     "contact": {
-      "response": "You can contact our support team via email at support@fillguard.com or ",
+      "response": "You can contact our support team via email at fillguard.iot@gmail.com or call +94778367910 ",
       "quickReplies": ["Install", "Troubleshoot","Device information"]
+    },
+    "device": {
+      "response":"Powered by the ESP32, our IoT device integrates the HC-SR04 for precise fill-level detection and the DHT-11 for environmental monitoring. Delivering real-time insights, it optimizes waste management and industrial operations with seamless integration. ",
+      "quickReplies": ["Contact", "Install", "Troubleshoot"]
     }
   };
 
@@ -45,7 +49,8 @@ const ChatBot = () => {
     const keywordMap = {
       "install": ["install", "setup", "set up", "configure", "start"],
       "battery": ["battery", "charge", "charging", "power", "battery life"],
-      "contact": ["contact", "support", "email", "phone", "help"]
+      "contact": ["contact", "support", "email", "phone", "help", "troubleshoot"],
+      "device": ["device info", "iot", "product"]
     };
 
     // Check for keyword matches
@@ -124,7 +129,7 @@ const ChatBot = () => {
           messages: [
             {
               role: 'system',
-              content: 'You are a helpful assistant for waste management. Keep responses very brief and short.'
+              content: 'You are a helpful assistant for waste management. Keep responses very brief and maximum 50 words.'
             },
             ...recentMessages,
             { role: 'user', content: userMessage }

@@ -428,7 +428,7 @@ function Shop() {
               {product.countInStock > 0 && (
                 <ListGroup.Item>
                   <Row>
-                    <Col>Qty</Col>
+                    <Col>Quantity:</Col>
                     <Col>
                       <Form.Control
                         as="select"
@@ -446,14 +446,30 @@ function Shop() {
                 </ListGroup.Item>
               )}
               <ListGroup.Item>
+                <div className="text-center">
                 <Button
                   className="btn-block"
                   type="button"
                   disabled={product.countInStock === 0}
                   onClick={addToCartHandler}
+                  style={{
+                       backgroundColor: "black",
+                       color: "white",
+                       padding: "12px",
+                       border: "none",
+                       cursor: "pointer",
+                       transition: "background-color 0.3s ease",
+                       borderRadius: "30px",
+                       fontSize: "18px",
+                       width: "25%",
+                       position: "center"
+                     }}
+                     onMouseEnter={(e) => (e.target.style.backgroundColor = "#ffc300")}
+                     onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
                 >
                   Add To Cart
                 </Button>
+                </div>
               </ListGroup.Item>
               {/* Added Rating */}
               <ListGroup.Item>

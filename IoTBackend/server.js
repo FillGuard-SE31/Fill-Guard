@@ -10,11 +10,14 @@ import { Server } from "socket.io";
 import SensorData from "./models/sensorData.js";
 import "./models/Database.js"; // Connects to MongoDB
 import { checkAndNotifyBinFill } from "./controllers/notificationController.js";
+import reportRoutes from "./routes/reportRoutes.js"; 
 
 // Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use("/api", reportRoutes);
 
 // Create HTTP server for WebSockets
 const server = http.createServer(app);
